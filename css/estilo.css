@@ -1,0 +1,54 @@
+:root{
+    --verdeclaro: #606c38;
+    --verdeoscuro: #283618;
+    --verdepastel: #b5e48c;
+    --blanco: #fefae0;
+    --cafeclaro: #dda15e;
+    --secundario: #0097a7;
+    --cafe: #bc6c25;
+    --negro: #000;
+    --gris: #757575;
+
+    --fuentePrincipal: font-family: 'Rubik', sans-serif;
+}
+html{
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+/*Globoles*/
+body{
+    font-size: 1.6rem;
+    background-color: var(--verdepastel);
+    line-height: 1.5;
+    font-family: 'Rubik', sans-serif;
+}   
+p{
+    font-size: 1.8rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+a{
+    text-decoration: none;
+}
+h1, h2, h3{
+    text-align: center;
+    font-family: var(--fuentePrincipal);
+}
+h1{
+    font-size: 4rem;
+}
+h2{
+    font-size: 3.2rem;
+}
+h3{
+    font-size: 2.4rem;
+}
+
+
+
+
+
+
+
