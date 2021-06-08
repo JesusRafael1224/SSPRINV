@@ -237,6 +237,9 @@ display: block;
     background-color: var(--cafeclaro);
     min-width: auto;    
 }
+.boton__regresar:hover{
+    cursor:unset
+}    
 .boton:hover{
     cursor: pointer;
 }

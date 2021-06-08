@@ -2,6 +2,10 @@
 require 'database.php';
 $db = conectarDB();
 
+//consulta para area de Trabajo
+$consulta = "SELECT * FROM area_trabajo";
+$consulta_area = mysqli_query($db, $consulta);
+
 //Arreglo con mensajes de errores
 $errores = [];
 
@@ -22,8 +26,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $telefono = mysqli_real_escape_string($db, filter_var( $_POST['telefono'], FILTER_VALIDATE_INT));
     $correo = mysqli_real_escape_string($db, filter_var( $_POST['correo'], FILTER_VALIDATE_EMAIL));
     $area = mysqli_real_escape_string($db, filter_var( $_POST['area'], FILTER_SANITIZE_STRING));
-    $usuario = mysqli_real_escape_string($db, $_POST['usuario']);
-    $contrasena = mysqli_real_escape_string($db, $_POST['contrasena']);
+    $usuario = mysqli_real_escape_string($db, filter_var ($_POST['usuario'], FILTER_SANITIZE_STRING));
+    $contrasena = mysqli_real_escape_string($db, filter_var( $_POST['contrasena'], FILTER_SANITIZE_STRING));
     //$confirmar_contrasena = $_POST['confrirmar_contrasena'];
 
     if(!$nombre){
@@ -38,9 +42,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     if(!$correo){
         $errores[] = "Debes añadir tu correo electronico";
     }
-    if(!$area){
+    /*if(!$area){
         $errores[] = "Debes añadir tu area de trbajo";
     }
+    */
     if(!$usuario){
         $errores[] = "Debes añadir un usuario";
     }
@@ -54,17 +59,31 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     //Revisar que el arreglo de errores este vacio 
     if(empty($errores)){
+
+        $query = "call `insert_usuario`('$nombre', '$empleado',  '$area', '$telefono', '$correo')";
+        
+        $insertar1 = mysqli_query($db, $query);
+
+        $query2 = "call `insertar_usuario`('$usuario', sha1('$contrasena'))";
+
+        $insertar2 = mysqli_query($db, $query2);
+
         //Insertar en la base de datos
-        $query = "INSERT INTO empleado (nombre, no_empleado, telefono, correo, area_trabajo) VALUES ('$nombre', '$empleado', '$telefono', '$correo', '$area')";
+        /*
+    $query = "INSERT INTO empleado (nombre, no_empleado, area_trabajo, telefono, correo) VALUES ('$nombre', '$empleado',  '$area', '$telefono', '$correo')";
+
+    $resultado1 = mysqli_query($db, $query);
 
     $query = "INSERT INTO usuarios (username, contrasena) VALUES ('$usuario', '$contrasena')";
 
-    $resultado = mysqli_query($db, $query);
+    $resultado2 = mysqli_query($db, $query);
+        */
 
-    if($resultado){
+    if($insertar1 || $insertar2){
         header('location: /registro_proyecto.php');
         //echo "Registrado correctamente";
     }
+    
     }
 }
 
@@ -81,8 +100,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
-<link rel="preload" href="/css/altausuario.css" as="style" />
-    <link rel="stylesheet" href="/css/altausuario.css">
+<link rel="preload" href="/css/style.css" as="style" />
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <header class="header">
@@ -91,9 +110,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     </a>
     <h2>Nuevo Usuario</h2>
     </header>
-    <main class="contenedor">
+
+    <main class="contenedor sombra">
         <section>
-                <form action="" method="POST" class="formulario sombra">
+                <form action="" method="POST" class="formulario">
                     <fieldset>
                         <h3>Favor de llenar todos los apartados</h3>
                         <?php foreach($errores as $error): ?>
@@ -109,19 +129,42 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                             </div>
                             <div class="campo campo__empleado">
                                 <label for="empleado">No. Empleado o Matricula</label>
-                                <input type="number" class="input-text" name="empleado" placeholder="Número de empleado o matrícula" autocomplete="off" value="<?php echo $empleado; ?>">
+                                <input 
+                                type="number" class="input-text" 
+                                name="empleado" 
+                                placeholder="Número de empleado o matrícula" 
+                                autocomplete="off"
+                                min="1"
+                                value="<?php echo $empleado; ?>">
                             </div>
                             <div class="campo campo__telefono">
                                 <label for="telefono">Teléfono:</label>
-                                <input type="number" class="input-text" name="telefono" placeholder="Escribe tu numero telefónico" autocomplete="off" value="<?php echo $telefono;?>">
+                                <input 
+                                type="number" 
+                                class="input-text" 
+                                name="telefono" 
+                                placeholder="Escribe tu numero telefónico" 
+                                min="1"
+                                autocomplete="off" 
+                                value="<?php echo $telefono;?>">
                             </div>
                             <div class="campo campo__correo">
                                 <label for="correo">Correo:</label>
                                 <input type="email" class="input-text" name="correo" placeholder="Escribe tu correo electrónico" autocomplete="off" value="<?php echo $correo; ?>">
                             </div>
                             <div class="campo campo__area">
-                                <label for="area">Área de trabajo</label>
-                                <input type="text" class="input-text" name="area" placeholder="Escribe tu area de trabajo" autocomplete="off" value="<?php echo $area;?>">
+                                <label for="area">Área de trabajo:</label>
+                                <select name="area" id="area"  class="opcionesArea">
+                                    <option disabled selected >-- Area de trabajo --</option>
+                                    <?php while($row = mysqli_fetch_assoc($consulta_area) ): ?>
+                                        <option <?php echo $area === $row['idarea_trabajo'] ? 'selected' : ''; ?> value="<?php echo $row['idarea_trabajo'] ?>"> <?php echo $row['area']; ?> </option>
+
+                                    <?php endwhile; ?>
+                                </select>
+                                
+                                <!--
+                                <input type="text" class="input-text" name="area" placeholder="Escribe tu area de trabajo" autocomplete="off" value="<?php echo $area;?>"> 
+                                -->
                             </div>
                             <div class="campo campo__usuario">
                                 <label for="usuario">Usuario:</label>
@@ -129,7 +172,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                             </div>
                             <div class="campo campo__contrasena">
                                 <label for="contrasena">Contraseña:</label>
-                                <input type="password" class="input-text" name="contrasena" autocomplete="off" value="<?php echo $contrasena;?>">
+                                <input type="password" class="input-text" name="contrasena"
+                                id="contrasena"
+                                autocomplete="off" value="<?php echo $contrasena;?>">
                             </div>
                             <!--
                             <div class="campo campo_confirmar_contrasena">
@@ -137,8 +182,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                                 <input type="password" class="input-text" name="confirmar_contrasena" autocomplete="off" value="<?php echo $confirmar_contrasena;?>">
                             </div>
                             -->
+                            <div class="regresar">
+                                <a href="registro_proyecto.php" class="boton boton__regresar">Regresar</a>
+                            </div>
                             <div class="registrar">
-                            <input type="submit" class="boton" value="Registrar">
+                            <input type="submit" class="boton boton__registrar" value="Registrar">
                             </div>
                         </div>
                     </fieldset>
@@ -148,5 +196,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     <footer class="footer">
     <img src="/image/logofooter.PNG" alt="Logotipo" class="footer__logo">
     </footer>
+    
 </body>
 </html>

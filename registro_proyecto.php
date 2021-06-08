@@ -47,14 +47,17 @@ echo "Insertado correctamente";
     <link rel="stylesheet" href="/css/normalize.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;1,300&display=swap" rel="stylesheet"/>
-    <link rel="preload" href="/css/estilos.css" as="style" />
-    <link rel="stylesheet" href="/css/estilos.css" />
+    <link rel="preload" href="/css/style.css" as="style" />
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
 
 
-    <header>
-      <h1 class="titulo">Registro de Proyecto</h1>
+    <header class="header">
+    <a href="alta_usuario.php">
+    <img src="/image/logotecnologico.png" alt="Logotipo" class="header__logo">
+    </a>
+    <h2>Nuevo proyecto</h2>
     </header>
 
 <main class="contenedor sombra">
@@ -499,5 +502,8 @@ echo "Insertado correctamente";
         
     </form>
     </main>
+    <footer class="footer">
+    <img src="/image/logofooter.PNG" alt="Logotipo" class="footer__logo">
+    </footer>
   </body>
 </html>
