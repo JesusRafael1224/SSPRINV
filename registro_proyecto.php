@@ -1,8 +1,53 @@
 <?php
 require 'database.php';
  $db = conectarDB();
+ mysqli_set_charset($db, 'utf8mb4');
+
+ //Consultas
+ $instruccion_formacion = "SELECT * FROM formacion_recursos_humanos";
+ $consulta_formacion = mysqli_query($db, $instruccion_formacion);
+
+ $instruccion_productividad = "SELECT * FROM productividad_academica";
+ $consulta_productividad = mysqli_query($db, $instruccion_productividad);
+
+ $instruccion_productos = "SELECT * FROM productos_vinculacion";
+ $consulta_productos = mysqli_query($db, $instruccion_productos);
+
+ $instruccion_tipo = "SELECT * FROM tipo_investigacion";
+ $consulta_tipo_investigacion = mysqli_query($db, $instruccion_tipo);
+
+$instruccion_campo = "SELECT * FROM campo_interes";
+$consulta_campo_interes = mysqli_query($db, $instruccion_campo);
+
+ //Arreglo de errores
+ $errores = [];
+
+    $fecha = '';
+    $num_registro = '';
+    $formacion = '';
+    $tipo_investigacion = '';
+    $campo_interes = '';
+    $nom_programas_educativos = '';
+    $nom_cuerpos_academicos = '';
+    $linea_investigacion_trabajo= '';
+    $nombre_instituciones_vinculadas = '';
+    $fecha_tentativa_inicio = '';
+    $duracion_proyecto = '';
+    $obj_general = '';
+    $obj_especificos = '';
+    $formacion_recursos = '';
+    $productividad_academica = '';
+    $productos_vinculacion = '';
+    $impacto = '';
+    $materiales_suministros = '';
+    $servicios_generales = '';
+    $total = '';
+    $firma_representante_tecnico = '';
+    $firma_jefe_dep_investigacion = '';
+    $sello_departamento_investigacion = '';
   
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
     echo "<pre>";
     var_dump($_POST);
     echo "</pre>";
@@ -14,20 +59,35 @@ $correo = $_POST ['correo'];
 $titulo_proyecto = $_POST['titulo_proyecto'];
 $nombre_convocatoria = $_POST['nombre_convocatoria'];
 $inst_emite_convocatoria = $_POST['inst_emite_convocatoria'];
-$tipo_investigacion = $_REQUEST['tipo_investigacion'];
-$campo_interes = $_REQUEST['campo_interes'];
+$tipo_investigacion = $_POST['tipo_investigacion'];
+$campo_interes = $_POST['campo_interes'];
 $nom_programas_educativos = $_POST['nom_programas_educativos'];
 $nom_cuerpos_academicos = $_POST['nom_cuerpos_academicos'];
 $linea_investigacion_trabajo = $_POST['linea_investigacion_trabajo'];
 $nombre_instituciones_vinculadas = $_POST['nombre_instituciones_vinculadas'];
+$fecha_tentativa_inicio = $_POST['fecha_tentativa_inicio'];
+$duracion_proyecto = $_POST['duracion_proyecto'];
+$obj_general = $_POST['obj_general'];
+$obj_especificos = $_POST['obj_especificos'];
+$formacion_recursos = $_POST ['formacion_recursos'];
+$productividad_academica = $_POST['productividad_academica'];
+$productos_vinculacion = $_POST['productos_vinculacion'];
+$impacto = $_POST['impacto'];
+$materiales_suministros = $_POST['materiales_suministros'];
+$servicios_generales = $_POST['servicios_generales'];
+$total = $_POST['total'];
+$firma_representante_tecnico = $_POST['firma_representante_tecnico'];
+$firma_jefe_dep_investigacion = $_POST['firma_jefe_dep_investigacion'];
+$sello_departamento_investigacion = $_POST ['sello_departamento_investigacion'];
 
-$query = "INSERT INTO registro_proyecto (fecha, num_registro, nombre, correo, titulo_proyecto, nombre_convocatoria, inst_emite_convocatoria, tipo_investigacion, campo_interes, nom_programas_educativos, nom_cuerpos_academicos, linea_investigacion_trabajo, nombre_instituciones_vinculadas ) VALUES ('$fecha', '$num_registro', '$nombre', '$correo',  '$titulo_proyecto', '$nombre_convocatoria', '$inst_emite_convocatoria','$tipo_investigacion', '$campo_interes', '$nom_programas_educativos', '$nom_cuerpos_academicos', '$linea_investigacion_trabajo', '$nombre_instituciones_vinculadas')";
+ //$query = "call `new_proyecto`('$fecha', '$num_registro')";
+
+$query = "INSERT INTO registro_proyecto (fecha, num_registro, nombre, correo, titulo_proyecto, nombre_convocatoria, inst_emite_convocatoria, tipo_investigacion, campo_interes, nom_programas_educativos, nom_cuerpos_academicos, linea_investigacion_trabajo, nombre_instituciones_vinculadas, fecha_tentativa_inicio, duracion_proyecto, obj_general, obj_especificos, formacion_recursos, productividad_academica, productos_vinculacion, impacto, materiales_suministros, servicios_generales, total, firma_representante_tecnico, firma_jefe_dep_investigacion, sello_departamento_investigacion) VALUES ('$fecha', '$num_registro', '$nombre', '$correo', '$titulo_proyecto', '$nombre_convocatoria', '$inst_emite_convocatoria','$tipo_investigacion', '$campo_interes', '$nom_programas_educativos', '$nom_cuerpos_academicos', '$linea_investigacion_trabajo', '$nombre_instituciones_vinculadas', '$fecha_tentativa_inicio', '$duracion_proyecto', '$obj_general', '$obj_especificos', '$formacion_recursos', '$productividad_academica', '$productos_vinculacion', '$impacto', '$materiales_suministros', '$servicios_generales', '$total', '$firma_representante_tecnico', '$firma_jefe_dep_investigacion', '$sello_departamento_investigacion')";
 
 //echo $query;
 
-$resultado = mysqli_query($db, $query);
-
-if($query){
+$insertar = mysqli_query($db, $query);
+if($insertar){
 echo "Insertado correctamente";
 }
 
@@ -37,54 +97,53 @@ echo "Insertado correctamente";
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registro</title>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo proyecto</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     <link rel="preload" href="/css/normalize.css" as="style"/>
-    <link rel="stylesheet" href="/css/normalize.css" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;1,300&display=swap" rel="stylesheet"/>
-    <link rel="preload" href="/css/style.css" as="style" />
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+<link rel="preload" href="/css/style.css" as="style" />
+    <link rel="stylesheet" href="/css/style.css">
   </head>
-  <body>
+<body>
 
-
-    <header class="header">
+<header class="header">
     <a href="alta_usuario.php">
     <img src="/image/logotecnologico.png" alt="Logotipo" class="header__logo">
     </a>
     <h2>Nuevo proyecto</h2>
-    </header>
+</header>
 
 <main class="contenedor sombra">
 
-    <form action="" method="POST">
+<form action="" method="POST" class="">
 
-    <section class="fecha input-text">
-      <div >
-        <label for="fecha">Fecha:</label><br>
+<h3>Favor de llenar todos los apartados</h3>
+
+<section class="formulario">
+<div>
+<label for="fecha">Fecha:</label><br>
         <input type="date" name="fecha"
                             id="fecha" value="2021-05-15" min="2021-01-01" max="2025-05-15">
-      </div>
-      <div class>
-        <label for="num_registro">Número de registro:</label><br>
-        <input type="number" name="num_registro" id="num_registro" class="from">
-      </div>
-    </section>
+</div>
+<div>
+<label for="num_registro">Número de registro:</label><br>
+        <input type="number" name="num_registro" id="num_registro" class="from" min="1">
+</div>
+</section>
 
-    
-    <section class="formulario input-text" >
-        
-            <fieldset>
-      <div class="representante">
+<section class="formulario">
+<legend>Representante técnico del proyecto</legend>
+<div class="input-text representante">
+<div>
         <div>
-          <label>Representante Técnico del Proyecto</label></br>
           <label for="nombre">Nombre:</label>
-          <input type="text" id="nombre" name="nombre"></br>
+          <input type="text" id="nombre" name="nombre">
 
           <label for="correo">Correo Electronico:</label>
           <input type="text" name="correo" id="correo">
@@ -94,7 +153,8 @@ echo "Insertado correctamente";
             <label for="titulo_proyecto">Título del proyecto</label>
             <input type="text" name="titulo_proyecto" id="titulo_proyecto">
         </div>
-
+</div>
+<div>
         <div>
             <label for="nombre_convocatoria">Nombre de la convocatoria</label>
             <input type="text" name="nombre_convocatoria" id="nombre_convocatoria">
@@ -104,57 +164,39 @@ echo "Insertado correctamente";
             <label for="inst_emite_convocatoria">Institución que emite la convocatoria:</label>
             <input type="text" name="inst_emite_convocatoria" id="inst_emite_convocatoria">
         </div>
+</div>
+</div>
+</section>
 
-      </div>
-      </fieldset>
-        
-    </section>
+<section class="formulario">
+<div class="representante">
+<div>
+<legend>Tipo de investigación</legend>
+            <select name="tipo_investigacion" id="tipo_investigacion">
+                <option disabled selected>--Tipo de investigacion--</option>
+                <?php while($row = mysqli_fetch_assoc($consulta_tipo_investigacion) ): ?>
+                                        <option <?php echo $tipo_investigacion === $row['idtipo_investigacion'] ? 'selected' : ''; ?> value="<?php echo $row['idtipo_investigacion'] ?>"> <?php echo $row['dato']; ?> </option>
 
-        <section class="formulario">
+                                    <?php endwhile; ?>
             
-                <fieldset class="">
-                    <div class="representante">
-                <div>
-                    <legend>Tipo de investigación:</legend>
-                    <div class="campo">
-                    <input type="radio" id="Basica" name="tipo_investigacion" value="Basica" >
-                    <label for="basica">Basica</label>
-                    </div>
-                    <div class="campo">
-                    <input type="radio" id="Aplicada" name="tipo_investigacion" value="Aplicada">
-                    <label for="aplicada">Aplicada</label>
-                    </div>
-                    <div class="campo">
-                    <input type="radio" name="tipo_investigacion" id="Innovacion" value="Innovacion">
-                    <label for="innovacion">Innovación Tecnológica</label>
-                    </div>
-                </div>
-
-                <div>
+            </select>
+</div>
+<div>
                     <legend>Campo de interés:</legend>
-
-                    <div class="campo">
-                    <input type="radio" name="campo_interes" id="Ciencias_naturales" value="Ciencias_naturales">
-                    <label>Ciencias naturales</label>
-                    </div>
-                    <div class="campo">
-                    <input type="radio" name="campo_interes" id="ingenieria_y_Tecnologia" value="ingenieria_y_Tecnologia">
-                    <label>Ingenieria y Tecnologia</label>
-                    </div>
-                    <div class="campo">
-                    <input type="radio" name="campo_interes" id="Ciencias_Sociales" value="Ciencias_Soiales">
-                    <label>Ciencias sociales</label>
-                    </div>
-                </div>
-            </div>
-                </fieldset>
+            <select name="campo_interes" id="campo_interes">
+                <option value="" disabled selected>--Campo de interes--</option>
+                <?php while($row = mysqli_fetch_assoc($consulta_campo_interes) ): ?>
+                <option  <?php echo $campo_interes === $row['idcampo_interes'] ? 'selected' : ''; ?> value=" <?php echo $row['idcampo_interes'] ?> "> <?php echo $row['dato']; ?> </option>
             
-        </section>
+            <?php endwhile; ?>
+            </select>      
 
-        <section class="formulario input-text">
-            
-                <fieldset>
-                    <div class>
+</div>
+</section>
+
+<section class="formulario">
+<div class="input-text representante">
+    <div>
                     <div>
                     <label for="nom_programas_educativos">Nombre del o de los programa&#40;s&#41; educativo&#40;s&#41; donde se realiza el proyecto:</label>
                     <input type="text" name="nom_programas_educativos" id="nom_programas_educativos" >
@@ -167,27 +209,26 @@ echo "Insertado correctamente";
                         <label for="linea_investigacion_trabajo">Linea de investigación o trabajo:</label>
                         <input type="text"  name="linea_investigacion_trabajo" id="linea_investigacion_trabajo">
                     </div>
+                    </div>
+                    <div>
                     <div>
                         <label>¿Están vinculadas instituciones externas en el desarrollo del proyecto?</label><br>
-                        <label for="opcion">Sí</label>
-                        <input type="radio" name="hay_instituciones_vinculadas" id="Si" value="Si">
-
-                        <label for="opcion">No</label>
-                        <input type="radio" name="hay_instituciones_vinculadas" id="No" value="No">
+                        <select name="" id="">
+                            <option value="si" selected>Si</option>
+                            <option value="no">No</option>
+                        </select>
                         <div>
                             <label for="nombre_instituciones_vinculadas">Nombre de las instituciones Externas vinculadas:</label>
                             <input type="text" name="nombre_instituciones_vinculadas" id="nombre_instituciones_vinculadas" >
                         </div>
-                    </div>
+                    
                 </div>
-                </fieldset>
-            
-        </section>
+                </div>
 
-        <section class="formulario input-text">
-            
-                <fieldset>
-                    <div>
+</section>
+
+<section class="formulario">
+<div class="input-text representante">
                         <div>
                             <label for="fecha">Fecha tentativa de inicio del proyecto:</label>
                             <input type="date" name="fecha_tentativa_inicio"
@@ -198,39 +239,26 @@ echo "Insertado correctamente";
                             <input type="text" name="duracion_proyecto" id="duracion_proyecto">
                         </div>
                     </div>
-                </fieldset>
-            
-        </section>
+</section>
 
-        <section class="formulario sectionArea">
-            <fieldset>
-                <div>
-                    <label for="obj_general">Objetivo General del proyecto</label>
-                    <textarea name="obj_general" id="obj_general" cols="59" rows="10"></textarea>
-                </div>
-            </fieldset>
-        </section>
+<section class="formulario">
+<div class="input-text representante">
+<div>
+                    <legend>Objetivo General del proyecto</legend>
+                    <textarea name="obj_general" id="obj_general" cols="40" rows="10"></textarea>
+</div>
+<div>
+                    <legend>Objetivos Específicos del proyecto</legend>
+                    <textarea name="obj_especificos" id="obj_especificos" cols="40" rows="10"></textarea>
+</div>
+</div>
 
-        <section class="formulario sectionArea">
-            <fieldset>
-                <div>
-                    <label for="obj_especificos">Objetivos Específicos</label>
-                    <textarea name="obj_especificos" id="obj_especificos" cols="59" rows="10"></textarea>
-                </div>
-            </fieldset>
-        </section>  
+</section>
 
-        <section class="input-text">
-            <h2 class="titulo">Investigadores &#40;as&#41; Participantes</h2>
-            <div class="participantes formulario">
-                <div>
-                    <label>No.</label><br>
-                    <label>1</label><br>
-                    <label>2</label><br>
-                    <label>3</label><br>
-                    <label>4</label><br>
-                </div>
-
+<section class="formulario"> 
+<legend>Investigadores &#40;as&#41; Participantes</legend>
+<div class="participantes">
+       
                 <div>
                     <label>Nombre</label><br>
                     <input type="text" name="nombre_inves_participante" id="nombre_inves_participante"><br>
@@ -263,13 +291,12 @@ echo "Insertado correctamente";
                     <input type="text" name="ruta_firma" id="ruta_firma"><br>
                 </div>
             </div>
-        </section>
+</section>
 
-        <section class="input-text">
-            
-                <h2 class="titulo">Estudiantes Participantes</h2>
-                <div class="participantes formulario">
-                    <div>
+<section class="formulario">
+<legend>Estudiantes participantes</legend>
+<div class="grid4">
+                        <div>
                         <label>Nombre Completo</label><br>
                         <input type="text" name="nombre_estudiante" id="nombre_estudiante"><br>
                         <input type="text" name="nombre_estudiante" id="nombre_estudiante"><br>
@@ -341,169 +368,112 @@ echo "Insertado correctamente";
                         <input type="text" name="telefono_estudiante" id="telefono_estudiante"><br>
                     </div>
             </div>
-        </section>
+</section>
 
-        <section>
-            <h2 class="titulo">Productos Entregables</h2>
-               
-                <div class="entregables formulario ">
+<section class="formulario">
+    <legend>Productos entregables</legend>
+    <div class="representante">
                     <div>
-                        <label>Fromación de Recursos Humanos</label></br>
-                        <input type="checkbox" name="recursos" id="incorporacion" value="incorporacion"> 
-                            <label for="incorporacion">incorporación de estudiantes</label>
-                        </br>
-                            <input type="checkbox" name="recursos" id="estudiantes" value="estudiantes">
-                            <label for="estudiantes">Estudiantes en residencia</label>
-                        </br>
-                        <input type="checkbox" name="recursos" id="desarrollo" value="desarrollo">
-                        <label for="desarrollo">Tesis de Licenciatura en desarrollo</label>
-                     </br>
-                        <input type="checkbox" name="recursos" id="concluidas" value="concluidas">
-                        <label for="concluidas">Tesis de Licenciatura concluidas</label>
-                        </br>
-                        <input type="checkbox" name="recursos" id="otros" value="otros">
-                        <label for="otros">Otros</label>
-                    </br>
-                        <label for="especifique">Especifique</label>
-                        <input type="text" name="recursos" id="especifique">
+                    <legend>Fromación de Recursos Humanos</legend>
+                    <select name="formacion_recursos" id="formacion_recursos">
+                                    <option disabled selected>--Formación de Recursos Humanos--</option>
+                                    <?php while($row = mysqli_fetch_assoc($consulta_formacion) ): ?>
+                                        <option <?php echo $formacion === $row['idformacion_recursos_humanos'] ? 'selected' : ''; ?> value="<?php echo $row['idformacion_recursos_humanos'] ?>"> <?php echo $row['dato']; ?> </option>
+                                        
+                                    <?php endwhile; ?>
+                                </select><br>
+                                <input type="checkbox" name="productos" id="beneficios" value="beneficios">
+                                <label for="beneficios">Otros</label><br>
+                                <label for="especifique3">Especifique:</label><br>
+                                <input type="text" name="productos" id="espcifique3">
                     </div>
-
                     <div>
-                        <label>Productividad académica</label></br>
-                        <input type="checkbox" name="productividad" id="bases" value="bases">
-                            <label for="bases">Bases de datos</label>
-                    </br>
-                    <input type="checkbox" name="productividad" id=memorias value="memorias">
-                    <label for="memorias">Memorias en extenso en congreso</label>
-                </br>
-                <input type="checkbox" name="productividad" id="indizadas" value="indizadas">
-                <label for="indizadas">Artículos en revistas indizadas</label>
-            </br>
-            <input type="checkbox" name="productividad" id="arbitradas" value="arbitradas">
-                <label for="arbitradas">Artículos en revistas arbitradas</label>
-            </br>
-            <input type="checkbox" name="productividad" id="divulgacion" value="divulgacion">
-                <label for="divulgacion">Artículos de divulgación</label>
-            </br>
-            <input type="checkbox" name="productividad" id="congreso" value="congreso">
-                <label for="congreso">Artículos en memoria de congreso</label>
-            </br>
-            <input type="checkbox" name="productividad" id="capitulos" value="capitulos">
-                <label for="capitulos">Capítulos de libros</label>
-            </br>
-            <input type="checkbox" name="productividad" id="editados" value="editados">
-                <label for="editados">Libros editados y publicados</label>
-            </br>
-            <input type="checkbox" name="productividad" id="enviados" value="enviados">
-                <label for="enviados">Libros enviados para revisón</label>
-            </br>
-            <input type="checkbox" name="productividad" id="prototipo" value="prototipo">
-                <label for="prototipo">Prototipo</label>   
-            </br>
-            <input type="checkbox" name="productividad" id="patentes" value="patentes">
-                <label for="patentes">Patentes enviados para registro</label>    
-            </br>
-            <input type="checkbox" name="productividad" id="paquetes" value="paquetes">
-                <label for="paquetes">Paquetes tecnológicos  enviados para registro</label>
-            </br>
-            <input type="checkbox" name="productividad" id="otros" value="otros">
-                <label for="otros">otros</label>    
-            </br>
-            <label for="especifique2">Especifique</label> 
-            <input type="text" name="productividad" id="especifique2">
-                    </div>
+                    <legend>Productividad académica</legend>
+                    <select name="productividad_academica" id="productividad_academica">
+                                    <option disabled selected >--Productividad académica--</option>
+                                    <?php while($row = mysqli_fetch_assoc($consulta_productividad) ): ?>
+                                        <option <?php echo $productividad_academica === $row['idproductos_entregables'] ? 'selected' : ''; ?> value="<?php echo $row['idproductos_entregables'] ?>"> <?php echo $row['dato']; ?> </option>
 
-            <div>
-                <label>Productos en vinculación o extensión</label>
-            </br>
-            <input type="checkbox" name="productos" id="incorporacion" value="incorporacion">
-            <label for="incorporacion">Incorporación de estudiantes a estancias</label>
-        </br>
-        <input type="checkbox" name="productos" id="estancia" value="estancia">
-        <label for="estancia">Estancia de investigador&#40;a&#41;</label>
-    </br>
-    <input type="checkbox" name="productos" id="residencia" value="residencia">
-    <label for="residencia">Estudiantes de residencia en empresa</label>
-</br>
-<input type="checkbox" name="productos" id="convenios" value="convenios">
-<label for="convenios">Convenios de colaboración</label>
-</br>
-<input type="checkbox" name="productos" id="asesoria" value="asesoria">
-<label for="asesoria">Asesoria Técnica</label>
-</br>
-<input type="checkbox" name="productos" id="prototipos" value="prototipo">
-<label for="prototipo">Prototipos</label>
-</br>
-<input type="checkbox" name="productos" id="piloto" value="piloto">
-<label for="piloto">Planta Piloto</label>
-</br>
-<input type="checkbox" name="productos" id="cursos" value="cursos">
-<label for="cursos">Cursos, Diplomados o capacitación</label>
-</br>
-<input type="checkbox" name="productos" id="donaciones" value="donaciones">
-<label for="donaciones">Donaciones</label>
-</br>
-<input type="checkbox" name="productos" id="beneficios" value="beneficios">
-<label for="beneficios">Otros beneficios</label>
-</br>
-<label for="especifique3">Especifique</label>
-<input type="text" name="productos" id="espcifique3">
-            </div>                    
-                </div>  
-        </section>
+                                    <?php endwhile; ?>
+                                </select><br>
+                                <input type="checkbox" name="productos" id="beneficios" value="beneficios">
+                                <label for="beneficios">Otros</label><br>
+                                <label for="especifique3">Especifique:</label><br>
+                                <input type="text" name="productos" id="espcifique3">
+                                 </div>
 
-        <section class="formulario sectionArea">
-            
-                <div>
-                    <label for="impacto">Impacto</label>
-                    <textarea name="impacto" id="impacto" cols="59" rows="10"></textarea>
+                                
+                                 <div>
+                                <legend>Productos en vinculación o extensión</legend>
+                                 <select name="productos_vinculacion" id="productos_vinculacion">
+                                    <option disabled selected >--Productos en vinculación o extensión--</option>
+                                    <?php while($row = mysqli_fetch_assoc($consulta_productos) ): ?>
+                                        <option <?php echo  $productos_vinculacion === $row['idproductos_vinculacion'] ? 'selected' : ''; ?> value="<?php echo $row['idproductos_vinculacion'] ?>"> <?php echo $row['dato']; ?> </option>
+
+                                    <?php endwhile; ?>
+                                </select><br>
+                                <input type="checkbox" name="productos" id="beneficios" value="beneficios">
+                                <label for="beneficios">Otros</label><br>
+                                <label for="especifique3">Especifique:</label><br>
+                                <input type="text" name="productos" id="espcifique3">
+                                 </div>
+                                 
+     </div>     
+</section>
+
+<section class="formulario flex alinear-centro">
+<div>
+                    <legend>Impacto</legend>
+                   <center> <textarea name="impacto" id="impacto" cols="70" rows="10"></textarea></center>
                 </div>
-            
-        </section>
+</section>
 
-        <section class="input-text">
-            <h2 class="titulo">Presupuesto</h2>
-            <div class="formulario representante">
+<section class="formulario">
+<legend>Presupuesto</legend>
+<div class="formulario representante">
                 <div>
-                    <label>Concepto</label></br>
+                    <legend>Concepto</legend></br>
                     <label for="materiales">Materiales y Suministro</label></br>
                     <label for="servicios">Servicios Generales</label></br>
                     <label>Total</label>
                 </div>
 
                 <div>
-                    <label>Monto solicitado</label></br>
-                    <input type="text" name="materiales_suministro" id="materiales_suministro"></br>
+                    <legend>Monto solicitado</legend></br>
+                    <input type="text" name="materiales_suministros" id="materiales_suministros"></br>
                     <input type="text" name="servicios_generales" id="servicios_generales"></br>
                     <input type="text" name="total" name="total"></br>
                 </div>
             </div>
-        </section>
+</section>
 
-        <section class="formulario sectionArea">
-            <div class="entregables">
+<section class="formulario">
+<div class="grid3">
                 <div>
-                    <textarea name="firma_representante_tecnico" id="representante_tecnico" cols="30" rows="10"></textarea>
-                    <label>Representante Técnico</label>
+                    <textarea name="firma_representante_tecnico" id="firma_representante_tecnico" cols="25" rows="10"></textarea>
+                    <legend>Representante Técnico</legend>
                 </div>
                 <div>
-                    <textarea name="firma_jefe_dep_investigacion" id="firma_jefe_dep_investigacion" cols="30" rows="10"></textarea>
-                        <label>Jefatura de Departamento de investigación y Desarrollo Tecnológico</label>
+                    <textarea name="firma_jefe_dep_investigacion" id="firma_jefe_dep_investigacion" cols="25" rows="10"></textarea>
+                        <legend>Jefatura de Departamento de investigación y Desarrollo Tecnológico</legend>
                 </div>
                 <div>
-                    <textarea name="sello_departamento_investigacion" id="sello_departamento_investigacion" cols="30" rows="10"></textarea>
-                     <label>Sello del Departamento de Investigación y Desarrollo Tecnológico</label>
+                    <textarea name="sello_departamento_investigacion" id="sello_departamento_investigacion" cols="25" rows="10"></textarea>
+                     <legend>Sello del Departamento de Investigación y Desarrollo Tecnológico</legend>
                 </div>
+                <div class="regresar">
+                                <a href="registro_proyecto.php" class="boton boton__regresar">Regresar</a>
+                            </div>
+                            <div class="registrar">
+                            <input type="submit" class="boton boton__registrar" value="Registrar">
+                            </div>
             </div>
-            <div class="alinear-centro flex">
-                <input class="boton w-sn-100"  type="submit" value="Enviar">
-               </div>
-        </section>
-        
-    </form>
-    </main>
-    <footer class="footer">
+</section>
+</form>
+</main>
+ 
+<footer class="footer">
     <img src="/image/logofooter.PNG" alt="Logotipo" class="footer__logo">
-    </footer>
-  </body>
+</footer>
+</body>
 </html>

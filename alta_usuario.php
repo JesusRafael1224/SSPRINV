@@ -1,6 +1,7 @@
 <?php
 require 'database.php';
 $db = conectarDB();
+mysqli_set_charset($db, 'utf8mb4');
 
 //consulta para area de Trabajo
 $consulta = "SELECT * FROM area_trabajo";
@@ -42,10 +43,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     if(!$correo){
         $errores[] = "Debes añadir tu correo electronico";
     }
-    /*if(!$area){
+    if(!$area){
         $errores[] = "Debes añadir tu area de trbajo";
     }
-    */
+    
     if(!$usuario){
         $errores[] = "Debes añadir un usuario";
     }
