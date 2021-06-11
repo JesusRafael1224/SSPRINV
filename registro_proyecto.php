@@ -119,10 +119,11 @@ echo "Insertado correctamente";
     <h2>Nuevo proyecto</h2>
 </header>
 
-<main class="contenedor sombra">
+<main class="contenedor sombra container">
 
 <form action="" method="POST" class="">
 
+<div class="container">
 <h3>Favor de llenar todos los apartados</h3>
 
 <section class="formulario">
@@ -136,10 +137,11 @@ echo "Insertado correctamente";
         <input type="number" name="num_registro" id="num_registro" class="from" min="1">
 </div>
 </section>
+</div>
 
-<section class="formulario">
+<section class="formulario container">
 <legend>Representante técnico del proyecto</legend>
-<div class="input-text representante">
+<div class="input-text grid">
 <div>
         <div>
           <label for="nombre">Nombre:</label>
@@ -168,34 +170,38 @@ echo "Insertado correctamente";
 </div>
 </section>
 
-<section class="formulario">
-<div class="representante">
-<div>
+<section class="formulario container">
+<div class="grid">
+<div class=>
 <legend>Tipo de investigación</legend>
+<center>
             <select name="tipo_investigacion" id="tipo_investigacion">
-                <option disabled selected>--Tipo de investigacion--</option>
+                <option disabled selected>--Tipo de investigación--</option>
                 <?php while($row = mysqli_fetch_assoc($consulta_tipo_investigacion) ): ?>
                                         <option <?php echo $tipo_investigacion === $row['idtipo_investigacion'] ? 'selected' : ''; ?> value="<?php echo $row['idtipo_investigacion'] ?>"> <?php echo $row['dato']; ?> </option>
 
                                     <?php endwhile; ?>
             
             </select>
+            </center>
 </div>
 <div>
                     <legend>Campo de interés:</legend>
+    <center>                
             <select name="campo_interes" id="campo_interes">
                 <option value="" disabled selected>--Campo de interes--</option>
                 <?php while($row = mysqli_fetch_assoc($consulta_campo_interes) ): ?>
                 <option  <?php echo $campo_interes === $row['idcampo_interes'] ? 'selected' : ''; ?> value=" <?php echo $row['idcampo_interes'] ?> "> <?php echo $row['dato']; ?> </option>
             
             <?php endwhile; ?>
-            </select>      
+            </select>   
+            </center>   
 
 </div>
 </section>
 
-<section class="formulario">
-<div class="input-text representante">
+<section class="formulario container">
+<div class="input-text grid">
     <div>
                     <div>
                     <label for="nom_programas_educativos">Nombre del o de los programa&#40;s&#41; educativo&#40;s&#41; donde se realiza el proyecto:</label>
@@ -227,8 +233,8 @@ echo "Insertado correctamente";
 
 </section>
 
-<section class="formulario">
-<div class="input-text representante">
+<section class="formulario container">
+<div class="input-text grid">
                         <div>
                             <label for="fecha">Fecha tentativa de inicio del proyecto:</label>
                             <input type="date" name="fecha_tentativa_inicio"
@@ -241,23 +247,28 @@ echo "Insertado correctamente";
                     </div>
 </section>
 
-<section class="formulario">
-<div class="input-text representante">
+<section class="formulario container">
+<div class="grid">
 <div>
+                    <center>
                     <legend>Objetivo General del proyecto</legend>
                     <textarea name="obj_general" id="obj_general" cols="40" rows="10"></textarea>
+                    </center>                
 </div>
 <div>
+                    <center>
                     <legend>Objetivos Específicos del proyecto</legend>
                     <textarea name="obj_especificos" id="obj_especificos" cols="40" rows="10"></textarea>
+                    </center>
 </div>
 </div>
 
 </section>
 
-<section class="formulario"> 
+<section class="formulario container"> 
 <legend>Investigadores &#40;as&#41; Participantes</legend>
-<div class="participantes">
+
+<div class="grid4">
        
                 <div>
                     <label>Nombre</label><br>
@@ -291,9 +302,10 @@ echo "Insertado correctamente";
                     <input type="text" name="ruta_firma" id="ruta_firma"><br>
                 </div>
             </div>
+            
 </section>
 
-<section class="formulario">
+<section class="formulario container">
 <legend>Estudiantes participantes</legend>
 <div class="grid4">
                         <div>
@@ -370,11 +382,12 @@ echo "Insertado correctamente";
             </div>
 </section>
 
-<section class="formulario">
+<section class="formulario container">
     <legend>Productos entregables</legend>
-    <div class="representante">
+    <div class="grid">
                     <div>
                     <legend>Fromación de Recursos Humanos</legend>
+                    <center>
                     <select name="formacion_recursos" id="formacion_recursos">
                                     <option disabled selected>--Formación de Recursos Humanos--</option>
                                     <?php while($row = mysqli_fetch_assoc($consulta_formacion) ): ?>
@@ -387,8 +400,10 @@ echo "Insertado correctamente";
                                 <label for="especifique3">Especifique:</label><br>
                                 <input type="text" name="productos" id="espcifique3">
                     </div>
+                    </center>
                     <div>
                     <legend>Productividad académica</legend>
+                    <center>
                     <select name="productividad_academica" id="productividad_academica">
                                     <option disabled selected >--Productividad académica--</option>
                                     <?php while($row = mysqli_fetch_assoc($consulta_productividad) ): ?>
@@ -401,11 +416,13 @@ echo "Insertado correctamente";
                                 <label for="especifique3">Especifique:</label><br>
                                 <input type="text" name="productos" id="espcifique3">
                                  </div>
+                                 </center>
 
                                 
                                  <div>
                                 <legend>Productos en vinculación o extensión</legend>
-                                 <select name="productos_vinculacion" id="productos_vinculacion">
+                                <center> 
+                                <select name="productos_vinculacion" id="productos_vinculacion">
                                     <option disabled selected >--Productos en vinculación o extensión--</option>
                                     <?php while($row = mysqli_fetch_assoc($consulta_productos) ): ?>
                                         <option <?php echo  $productos_vinculacion === $row['idproductos_vinculacion'] ? 'selected' : ''; ?> value="<?php echo $row['idproductos_vinculacion'] ?>"> <?php echo $row['dato']; ?> </option>
@@ -417,20 +434,21 @@ echo "Insertado correctamente";
                                 <label for="especifique3">Especifique:</label><br>
                                 <input type="text" name="productos" id="espcifique3">
                                  </div>
+                                 </center>
                                  
      </div>     
 </section>
 
-<section class="formulario flex alinear-centro">
+<section class="formulario container">
 <div>
                     <legend>Impacto</legend>
-                   <center> <textarea name="impacto" id="impacto" cols="70" rows="10"></textarea></center>
+                   <center> <textarea name="impacto" id="impacto" cols="50" rows="10"></textarea></center>
                 </div>
 </section>
 
-<section class="formulario">
+<section class="formulario container">
 <legend>Presupuesto</legend>
-<div class="formulario representante">
+<div class="formulario grid2">
                 <div>
                     <legend>Concepto</legend></br>
                     <label for="materiales">Materiales y Suministro</label></br>
@@ -447,27 +465,37 @@ echo "Insertado correctamente";
             </div>
 </section>
 
-<section class="formulario">
+<section class="formulario container">
 <div class="grid3">
+    <center>
                 <div>
                     <textarea name="firma_representante_tecnico" id="firma_representante_tecnico" cols="25" rows="10"></textarea>
                     <legend>Representante Técnico</legend>
                 </div>
+                </center>
+                <center>
                 <div>
                     <textarea name="firma_jefe_dep_investigacion" id="firma_jefe_dep_investigacion" cols="25" rows="10"></textarea>
                         <legend>Jefatura de Departamento de investigación y Desarrollo Tecnológico</legend>
                 </div>
+                </center>
+                <center>
                 <div>
                     <textarea name="sello_departamento_investigacion" id="sello_departamento_investigacion" cols="25" rows="10"></textarea>
                      <legend>Sello del Departamento de Investigación y Desarrollo Tecnológico</legend>
                 </div>
-                <div class="regresar">
+                </center>
+                
+            </div>
+            <div>
+            <div class="regresar">
                                 <a href="registro_proyecto.php" class="boton boton__regresar">Regresar</a>
                             </div>
                             <div class="registrar">
                             <input type="submit" class="boton boton__registrar" value="Registrar">
                             </div>
             </div>
+            
 </section>
 </form>
 </main>
