@@ -24,6 +24,11 @@ $consulta_campo_interes = mysqli_query($db, $instruccion_campo);
 
     $fecha = '';
     $num_registro = '';
+    $nombre = '';
+    $correo = '';
+    $titulo_proyecto = '';
+    $nombre_convocatoria = '';
+    $inst_emite_convocatoria = '';
     $formacion = '';
     $tipo_investigacion = '';
     $campo_interes = '';
@@ -48,9 +53,9 @@ $consulta_campo_interes = mysqli_query($db, $instruccion_campo);
   
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    echo "<pre>";
-    var_dump($_POST);
-    echo "</pre>";
+    // echo "<pre>";
+    // var_dump($_POST);
+    // echo "</pre>";
 
 $fecha = mysqli_real_escape_string($db, filter_var($_POST ['fecha'], FILTER_SANITIZE_STRING));
 $num_registro = mysqli_real_escape_string($db, filter_var($_POST ['num_registro'], FILTER_SANITIZE_NUMBER_INT));
@@ -80,16 +85,24 @@ $firma_representante_tecnico = mysqli_real_escape_string($db, filter_var($_POST[
 $firma_jefe_dep_investigacion = mysqli_real_escape_string($db, filter_var($_POST['firma_jefe_dep_investigacion'], FILTER_SANITIZE_STRING));
 $sello_departamento_investigacion = mysqli_real_escape_string($db, filter_var($_POST['sello_departamento_investigacion'], FILTER_SANITIZE_STRING));
 
+if(!$fecha && !$num_registro && !$nombre && !$correo && !$titulo_proyecto && !$nombre_convocatoria && !$inst_emite_convocatoria && !$tipo_investigacion && !$campo_interes && !$nom_programas_educativos && !$nom_cuerpos_academicos && !$linea_investigacion_trabajo && !$nombre_instituciones_vinculadas && !$fecha_tentativa_inicio && !$duracion_proyecto && !$obj_general && !$obj_especificos && !$formacion_recursos && !$productividad_academica && !$productos_vinculacion && !$impacto && !$materiales_suministros && !$servicios_generales && !$total && !$firma_representante_tecnico && !$firma_jefe_dep_investigacion && !$sello_departamento_investigacion){
+    $errores[] = "Todos los campos son obligatorios";
+}
  //$query = "call `new_proyecto`('$fecha', '$num_registro')";
 
-$query = "INSERT INTO registro_proyecto (fecha, num_registro, nombre, correo, titulo_proyecto, nombre_convocatoria, inst_emite_convocatoria, tipo_investigacion, campo_interes, nom_programas_educativos, nom_cuerpos_academicos, linea_investigacion_trabajo, nombre_instituciones_vinculadas, fecha_tentativa_inicio, duracion_proyecto, obj_general, obj_especificos, formacion_recursos, productividad_academica, productos_vinculacion, impacto, materiales_suministros, servicios_generales, total, firma_representante_tecnico, firma_jefe_dep_investigacion, sello_departamento_investigacion) VALUES ('$fecha', '$num_registro', '$nombre', '$correo', '$titulo_proyecto', '$nombre_convocatoria', '$inst_emite_convocatoria','$tipo_investigacion', '$campo_interes', '$nom_programas_educativos', '$nom_cuerpos_academicos', '$linea_investigacion_trabajo', '$nombre_instituciones_vinculadas', '$fecha_tentativa_inicio', '$duracion_proyecto', '$obj_general', '$obj_especificos', '$formacion_recursos', '$productividad_academica', '$productos_vinculacion', '$impacto', '$materiales_suministros', '$servicios_generales', '$total', '$firma_representante_tecnico', '$firma_jefe_dep_investigacion', '$sello_departamento_investigacion')";
+ if(empty($errores)){
+
+    $query = "INSERT INTO registro_proyecto (fecha, num_registro, nombre, correo, titulo_proyecto, nombre_convocatoria, inst_emite_convocatoria, tipo_investigacion, campo_interes, nom_programas_educativos, nom_cuerpos_academicos, linea_investigacion_trabajo, nombre_instituciones_vinculadas, fecha_tentativa_inicio, duracion_proyecto, obj_general, obj_especificos, formacion_recursos, productividad_academica, productos_vinculacion, impacto, materiales_suministros, servicios_generales, total, firma_representante_tecnico, firma_jefe_dep_investigacion, sello_departamento_investigacion) VALUES ('$fecha', '$num_registro', '$nombre', '$correo', '$titulo_proyecto', '$nombre_convocatoria', '$inst_emite_convocatoria','$tipo_investigacion', '$campo_interes', '$nom_programas_educativos', '$nom_cuerpos_academicos', '$linea_investigacion_trabajo', '$nombre_instituciones_vinculadas', '$fecha_tentativa_inicio', '$duracion_proyecto', '$obj_general', '$obj_especificos', '$formacion_recursos', '$productividad_academica', '$productos_vinculacion', '$impacto', '$materiales_suministros', '$servicios_generales', '$total', '$firma_representante_tecnico', '$firma_jefe_dep_investigacion', '$sello_departamento_investigacion')";
 
 //echo $query;
 
 $insertar = mysqli_query($db, $query);
+
 if($insertar){
 echo "Insertado correctamente";
 }
+
+ }
 
 }
  
@@ -121,10 +134,17 @@ echo "Insertado correctamente";
 
 <main class="contenedor sombra container">
 
+<h3>Favor de llenar todos los apartados</h3>
+
+<?php foreach($errores as $error): ?>
+                            <div class="alerta error">
+                            <?php  echo $error; ?>
+                            </div>
+                        <?php endforeach; ?>
+
 <form action="" method="POST" class="">
 
 <div class="container">
-<h3>Favor de llenar todos los apartados</h3>
 
 <section class="formulario">
 <div>
@@ -134,7 +154,7 @@ echo "Insertado correctamente";
 </div>
 <div>
 <label for="num_registro">Número de registro:</label><br>
-        <input type="number" name="num_registro" id="num_registro" class="from" min="1">
+        <input type="number" name="num_registro" id="num_registro" class="from" min="1" value="<?php echo $num_registro; ?>">
 </div>
 </section>
 </div>
@@ -145,26 +165,26 @@ echo "Insertado correctamente";
 <div>
         <div>
           <label for="nombre">Nombre:</label>
-          <input type="text" id="nombre" name="nombre">
+          <input type="text" id="nombre" name="nombre" value="<?php echo $nombre; ?>" placeholder="Nombre del reprentante técnico del proyecto" autocomplete="off">
 
           <label for="correo">Correo Electronico:</label>
-          <input type="text" name="correo" id="correo">
+          <input type="mail" name="correo" id="correo" value="<?php echo $correo; ?>" placeholder="Correo electronico del representante" autocomplete="off">
         </div>
 
         <div>
             <label for="titulo_proyecto">Título del proyecto</label>
-            <input type="text" name="titulo_proyecto" id="titulo_proyecto">
+            <input type="text" name="titulo_proyecto" id="titulo_proyecto" value="<?php echo $titulo_proyecto; ?>" autocomplete="off">
         </div>
 </div>
 <div>
         <div>
             <label for="nombre_convocatoria">Nombre de la convocatoria</label>
-            <input type="text" name="nombre_convocatoria" id="nombre_convocatoria">
+            <input type="text" name="nombre_convocatoria" id="nombre_convocatoria" value="<?php echo $nombre_convocatoria; ?>" autocomplete="off">
         </div>
 
         <div>
             <label for="inst_emite_convocatoria">Institución que emite la convocatoria:</label>
-            <input type="text" name="inst_emite_convocatoria" id="inst_emite_convocatoria">
+            <input type="text" name="inst_emite_convocatoria" id="inst_emite_convocatoria" value="<?php echo $inst_emite_convocatoria; ?>" autocomplete="off">
         </div>
 </div>
 </div>
@@ -205,15 +225,15 @@ echo "Insertado correctamente";
     <div>
                     <div>
                     <label for="nom_programas_educativos">Nombre del o de los programa&#40;s&#41; educativo&#40;s&#41; donde se realiza el proyecto:</label>
-                    <input type="text" name="nom_programas_educativos" id="nom_programas_educativos" >
+                    <input type="text" name="nom_programas_educativos" id="nom_programas_educativos" value="<?php echo $nom_programas_educativos; ?>" autocomplete="off">
                     </div>
                     <div>
                         <label for="nom_cuerpos_academicos">Nombre del/de los&#41; Cuerpo&#40;s&#41; Académico&#40;s&#41; participante&#40;s&#41; en el proyecto:</label>
-                        <input type="text" name="nom_cuerpos_academicos" id="nom_cuerpos_academicos">
+                        <input type="text" name="nom_cuerpos_academicos" id="nom_cuerpos_academicos" value="<?php echo $nom_cuerpos_academicos; ?>" autocomplete="off">
                     </div>
                     <div>
                         <label for="linea_investigacion_trabajo">Linea de investigación o trabajo:</label>
-                        <input type="text"  name="linea_investigacion_trabajo" id="linea_investigacion_trabajo">
+                        <input type="text"  name="linea_investigacion_trabajo" id="linea_investigacion_trabajo" value="<?php echo $linea_investigacion_trabajo; ?>" autocomplete="off">
                     </div>
                     </div>
                     <div>
@@ -225,7 +245,7 @@ echo "Insertado correctamente";
                         </select>
                         <div>
                             <label for="nombre_instituciones_vinculadas">Nombre de las instituciones Externas vinculadas:</label>
-                            <input type="text" name="nombre_instituciones_vinculadas" id="nombre_instituciones_vinculadas" >
+                            <input type="text" name="nombre_instituciones_vinculadas" id="nombre_instituciones_vinculadas" value="<?php echo $nombre_instituciones_vinculadas; ?>" autocomplete="off">
                         </div>
                     
                 </div>
@@ -242,7 +262,7 @@ echo "Insertado correctamente";
                         </div>
                         <div>
                             <label for="">Duración del proyecto:</label>
-                            <input type="text" name="duracion_proyecto" id="duracion_proyecto">
+                            <input type="text" name="duracion_proyecto" id="duracion_proyecto" value="<?php echo $duracion_proyecto; ?>" autocomplete="off">
                         </div>
                     </div>
 </section>
@@ -397,8 +417,8 @@ echo "Insertado correctamente";
                                 </select><br>
                                 <input type="checkbox" name="productos" id="beneficios" value="beneficios">
                                 <label for="beneficios">Otros</label><br>
-                                <label for="especifique3">Especifique:</label><br>
-                                <input type="text" name="productos" id="espcifique3">
+                                <label for="especifique">Especifique:</label><br>
+                                <input type="text" name="productos" id="espcifique">
                     </div>
                     </center>
                     <div>
@@ -413,8 +433,8 @@ echo "Insertado correctamente";
                                 </select><br>
                                 <input type="checkbox" name="productos" id="beneficios" value="beneficios">
                                 <label for="beneficios">Otros</label><br>
-                                <label for="especifique3">Especifique:</label><br>
-                                <input type="text" name="productos" id="espcifique3">
+                                <label for="especifique2">Especifique:</label><br>
+                                <input type="text" name="productos" id="espcifique2">
                                  </div>
                                  </center>
 
@@ -430,7 +450,7 @@ echo "Insertado correctamente";
                                     <?php endwhile; ?>
                                 </select><br>
                                 <input type="checkbox" name="productos" id="beneficios" value="beneficios">
-                                <label for="beneficios">Otros</label><br>
+                                <label for="beneficios">Otros beneficios </label><br>
                                 <label for="especifique3">Especifique:</label><br>
                                 <input type="text" name="productos" id="espcifique3">
                                  </div>
@@ -458,9 +478,9 @@ echo "Insertado correctamente";
 
                 <div>
                     <legend>Monto solicitado</legend></br>
-                    <input type="text" name="materiales_suministros" id="materiales_suministros"></br>
-                    <input type="text" name="servicios_generales" id="servicios_generales"></br>
-                    <input type="text" name="total" name="total"></br>
+                    <input type="text" name="materiales_suministros" id="materiales_suministros" value="<?php echo $materiales_suministros; ?>" autocomplete="off"></br>
+                    <input type="text" name="servicios_generales" id="servicios_generales" value="<?php echo $servicios_generales; ?>" autocomplete="off"></br>
+                    <input type="text" name="total" name="total" value="<?php echo $total; ?>" autocomplete="off"></br>
                 </div>
             </div>
 </section>
@@ -469,7 +489,7 @@ echo "Insertado correctamente";
 <div class="grid3">
     <center>
                 <div>
-                    <textarea name="firma_representante_tecnico" id="firma_representante_tecnico" cols="25" rows="10"></textarea>
+                    <textarea name="firma_representante_tecnico" id="firma_representante_tecnico" cols="25" rows="10" ></textarea>
                     <legend>Representante Técnico</legend>
                 </div>
                 </center>
