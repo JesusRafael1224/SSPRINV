@@ -114,14 +114,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     <main class="contenedor sombra">
         <section>
-                <form action="" method="POST" class="formulario">
-                    <fieldset>
-                        <h3>Favor de llenar todos los apartados</h3>
+
+        <h3>Favor de llenar todos los apartados</h3>
                         <?php foreach($errores as $error): ?>
                             <div class="alerta error">
                             <?php  echo $error; ?>
                             </div>
                         <?php endforeach; ?>
+                        
+                <form action="" method="POST" class="formulario">
+                    <fieldset>
+                        
 
                         <div class="grid">
                             <div class="campo campo__nombre">
