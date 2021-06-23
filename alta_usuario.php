@@ -23,8 +23,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     //exit;
     $nombre = mysqli_real_escape_string($db, filter_var( $_POST['nombre'], FILTER_SANITIZE_STRING));
-    $empleado = mysqli_real_escape_string($db, filter_var( $_POST['empleado'], FILTER_VALIDATE_INT) );
-    $telefono = mysqli_real_escape_string($db, filter_var( $_POST['telefono'], FILTER_VALIDATE_INT));
+    $empleado = mysqli_real_escape_string($db, filter_var( $_POST['empleado'], FILTER_SANITIZE_NUMBER_INT) );
+    $telefono = mysqli_real_escape_string($db, filter_var( $_POST['telefono'], FILTER_SANITIZE_NUMBER_INT));
     $correo = mysqli_real_escape_string($db, filter_var( $_POST['correo'], FILTER_VALIDATE_EMAIL));
     $area = mysqli_real_escape_string($db, filter_var( $_POST['area'], FILTER_SANITIZE_STRING));
     $usuario = mysqli_real_escape_string($db, filter_var ($_POST['usuario'], FILTER_SANITIZE_STRING));
@@ -161,7 +161,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                                 <select name="area" id="area"  class="opcionesArea">
                                     <option disabled selected >-- Area de trabajo --</option>
                                     <?php while($row = mysqli_fetch_assoc($consulta_area) ): ?>
-                                        <option <?php echo $area === $row['idarea_trabajo'] ? 'selected' : ''; ?> value="<?php echo $row['idarea_trabajo'] ?>"> <?php echo $row['area']; ?> </option>
+                                        <option <?php echo $area === $row['idarea_trabajo'] ? 'selected' : ''; ?> value="<?php echo $row['area'] ?>"> <?php echo $row['area']; ?> </option>
 
                                     <?php endwhile; ?>
                                 </select>
