@@ -136,15 +136,15 @@ display: block;
  .input-text{
     width: 100%;
    border: none;
-   padding: 1.5rem;
+   padding: 1rem;
    border-radius: 1.5rem;
    appearance: none;
    
 }
-.input-text input{
+.input-text input:not(.form-check-input){
     width: 100%;
    border: none;
-   padding: .4rem;
+   padding: 1rem;
    border-radius: 1.5rem;
    margin: .5rem;
    appearance: none;

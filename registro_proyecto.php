@@ -29,7 +29,7 @@ $consulta_campo_interes = mysqli_query($db, $instruccion_campo);
     $titulo_proyecto = '';
     $nombre_convocatoria = '';
     $inst_emite_convocatoria = '';
-    $formacion = '';
+    $formacion_recursos = '';
     $tipo_investigacion = '';
     $campo_interes = '';
     $nom_programas_educativos = '';
@@ -85,9 +85,92 @@ $firma_representante_tecnico = mysqli_real_escape_string($db, filter_var($_POST[
 $firma_jefe_dep_investigacion = mysqli_real_escape_string($db, filter_var($_POST['firma_jefe_dep_investigacion'], FILTER_SANITIZE_STRING));
 $sello_departamento_investigacion = mysqli_real_escape_string($db, filter_var($_POST['sello_departamento_investigacion'], FILTER_SANITIZE_STRING));
 
-if(!$fecha && !$num_registro && !$nombre && !$correo && !$titulo_proyecto && !$nombre_convocatoria && !$inst_emite_convocatoria && !$tipo_investigacion && !$campo_interes && !$nom_programas_educativos && !$nom_cuerpos_academicos && !$linea_investigacion_trabajo && !$nombre_instituciones_vinculadas && !$fecha_tentativa_inicio && !$duracion_proyecto && !$obj_general && !$obj_especificos && !$formacion_recursos && !$productividad_academica && !$productos_vinculacion && !$impacto && !$materiales_suministros && !$servicios_generales && !$total && !$firma_representante_tecnico && !$firma_jefe_dep_investigacion && !$sello_departamento_investigacion){
-    $errores[] = "Todos los campos son obligatorios";
+// if(!$fecha && !$num_registro && !$nombre && !$correo && !$titulo_proyecto && !$nombre_convocatoria && !$inst_emite_convocatoria && !$tipo_investigacion && !$campo_interes && !$nom_programas_educativos && !$nom_cuerpos_academicos && !$linea_investigacion_trabajo && !$nombre_instituciones_vinculadas && !$fecha_tentativa_inicio && !$duracion_proyecto && !$obj_general && !$obj_especificos && !$formacion_recursos && !$productividad_academica && !$productos_vinculacion && !$impacto && !$materiales_suministros && !$servicios_generales && !$total && !$firma_representante_tecnico && !$firma_jefe_dep_investigacion && !$sello_departamento_investigacion){
+  //  $errores[] = "Todos los campos son obligatorios";
+//}
+
+if(!$fecha){
+    $errores[] = "Fecha";
 }
+if(!$num_registro){
+    $errores[] = "Numero de registro";
+}
+if(!$nombre ){
+    $errores[] = "Nombre del representante tecnico del proyecto";
+}
+if(!$correo){
+    $errores[] = "Correo del representante tecnico del proyecto";
+}
+if(!$titulo_proyecto){
+    $errores[] = "Titulo del proyecto";
+}
+if(!$nombre_convocatoria){
+    $errores[] = "Nombre de la convocatoria";
+}
+if(!$inst_emite_convocatoria){
+    $errores[] = "Institución que emite la convocatoria";
+}
+if(!$tipo_investigacion){
+    $errores[] = "Tipo de investigación";
+}
+if(!$campo_interes){
+    $errores[] = "Campo de interés";
+}
+if(!$nom_programas_educativos){
+    $errores[] = "Nombre del o de los programa(s) educativos ";
+}
+if(!$nom_cuerpos_academicos){
+    $errores[] = "Nombre del/de los) cuerpos Académico(s)"; 
+}
+if(!$linea_investigacion_trabajo){
+    $errores[] = "Linea de investigación o trabajo";
+}
+// if(!$nombre_instituciones_vinculadas){
+//     $errores[] = "Nombre de las instituciones externas vinculadas";
+// }
+if(!$fecha_tentativa_inicio){
+    $errores[] = "Fecha tentativa de inicio del proyecto";
+}
+if(!$duracion_proyecto){
+    $errores[] = "duración del proyecto";
+}
+if(!$obj_general){
+    $errores[] = "Objetivo general del proyecto";
+}
+if(!$obj_especificos){
+    $errores[] = "Objetivos específicos";
+}
+if(!$formacion_recursos){
+    $errores[] = "Formación de recursos humanos";
+}
+if(!$productividad_academica){
+    $errores[] = "Productividad académica";
+}
+if(!$productos_vinculacion){
+    $errores[] = "Productos en vinculación o extensión";
+}
+if (!$impacto) {
+    $errores[] = "Impacto";
+}
+if(!$materiales_suministros){
+    $errores[] = "Materiales y suministros";
+}
+if (!$servicios_generales) {
+    $errores[] = "Servicios generales";
+}
+if (!$total) {
+    $errores[] = "Total";
+}
+if (!$firma_representante_tecnico) {
+    $errores[] = "Representante tecnico";
+}
+if(!$firma_jefe_dep_investigacion){
+    $errores[] = "Jefatura del departamento de investigación";
+}
+if (!$sello_departamento_investigacion) {
+    $errores[] = "Sello del departamento de investigación";
+}
+
  //$query = "call `new_proyecto`('$fecha', '$num_registro')";
 
  if(empty($errores)){
@@ -147,38 +230,40 @@ echo "Insertado correctamente";
 <div class="container">
 
 <section class="formulario">
+    <div class="grid3">
 <div>
 <label for="fecha">Fecha:</label><br>
-        <input type="date" name="fecha"
+        <input class="input-text" type="date" name="fecha"
                             id="fecha" value="2021-05-15" min="2021-01-01" max="2025-05-15">
 </div>
 <div>
 <label for="num_registro">Número de registro:</label><br>
-        <input type="number" name="num_registro" id="num_registro" class="from" min="1" value="<?php echo $num_registro; ?>">
+        <input type="number" name="num_registro" id="num_registro" class="input-text"  min="1" value="<?php echo $num_registro; ?>">
+</div>
 </div>
 </section>
 </div>
 
 <section class="formulario container">
-<legend>Representante técnico del proyecto</legend>
+<legend>Representante Técnico del proyecto</legend>
 <div class="input-text grid">
 <div>
         <div>
           <label for="nombre">Nombre:</label>
           <input type="text" id="nombre" name="nombre" value="<?php echo $nombre; ?>" placeholder="Nombre del reprentante técnico del proyecto" autocomplete="off">
 
-          <label for="correo">Correo Electronico:</label>
-          <input type="mail" name="correo" id="correo" value="<?php echo $correo; ?>" placeholder="Correo electronico del representante" autocomplete="off">
+          <label for="correo">Correo Electrónico:</label>
+          <input type="email" name="correo" id="correo" value="<?php echo $correo; ?>" placeholder="Correo electrónico del representante" autocomplete="off">
         </div>
 
         <div>
-            <label for="titulo_proyecto">Título del proyecto</label>
+            <label for="titulo_proyecto">Título del proyecto:</label>
             <input type="text" name="titulo_proyecto" id="titulo_proyecto" value="<?php echo $titulo_proyecto; ?>" autocomplete="off">
         </div>
 </div>
 <div>
         <div>
-            <label for="nombre_convocatoria">Nombre de la convocatoria</label>
+            <label for="nombre_convocatoria">Nombre de la Convocatoria:</label>
             <input type="text" name="nombre_convocatoria" id="nombre_convocatoria" value="<?php echo $nombre_convocatoria; ?>" autocomplete="off">
         </div>
 
@@ -193,12 +278,13 @@ echo "Insertado correctamente";
 <section class="formulario container">
 <div class="grid">
 <div class=>
-<legend>Tipo de investigación</legend>
+<legend>Tipo de investigación:</legend>
 <center>
-            <select name="tipo_investigacion" id="tipo_investigacion">
+            <select name="tipo_investigacion" id="tipo_investigacion" class="input-text">
                 <option disabled selected>--Tipo de investigación--</option>
                 <?php while($row = mysqli_fetch_assoc($consulta_tipo_investigacion) ): ?>
-                                        <option <?php echo $tipo_investigacion === $row['idtipo_investigacion'] ? 'selected' : ''; ?> value="<?php echo $row['idtipo_investigacion'] ?>"> <?php echo $row['dato']; ?> </option>
+                    <option <?php echo $tipo_investigacion === $row['idtipo_investigacion'] ? 'selected' : ''; ?> 
+                    value="<?php echo $row['dato'] ?>"> <?php echo $row['dato']; ?> </option>
 
                                     <?php endwhile; ?>
             
@@ -208,10 +294,11 @@ echo "Insertado correctamente";
 <div>
                     <legend>Campo de interés:</legend>
     <center>                
-            <select name="campo_interes" id="campo_interes">
-                <option value="" disabled selected>--Campo de interes--</option>
+            <select name="campo_interes" id="campo_interes" class="input-text">
+                <option disabled selected>--Campo de interes--</option>
                 <?php while($row = mysqli_fetch_assoc($consulta_campo_interes) ): ?>
-                <option  <?php echo $campo_interes === $row['idcampo_interes'] ? 'selected' : ''; ?> value=" <?php echo $row['idcampo_interes'] ?> "> <?php echo $row['dato']; ?> </option>
+                <option  <?php echo $campo_interes === $row['idcampo_interes'] ? 'selected' : ''; ?> 
+                value=" <?php echo $row['dato'] ?> "> <?php echo $row['dato']; ?> </option>
             
             <?php endwhile; ?>
             </select>   
@@ -224,7 +311,7 @@ echo "Insertado correctamente";
 <div class="input-text grid">
     <div>
                     <div>
-                    <label for="nom_programas_educativos">Nombre del o de los programa&#40;s&#41; educativo&#40;s&#41; donde se realiza el proyecto:</label>
+                    <label for="nom_programas_educativos">Nombre del o de los programa&#40;s&#41; educativo&#40;s&#41; donde se realizara el proyecto:</label>
                     <input type="text" name="nom_programas_educativos" id="nom_programas_educativos" value="<?php echo $nom_programas_educativos; ?>" autocomplete="off">
                     </div>
                     <div>
@@ -236,22 +323,46 @@ echo "Insertado correctamente";
                         <input type="text"  name="linea_investigacion_trabajo" id="linea_investigacion_trabajo" value="<?php echo $linea_investigacion_trabajo; ?>" autocomplete="off">
                     </div>
                     </div>
+                    
                     <div>
-                    <div>
-                        <label>¿Están vinculadas instituciones externas en el desarrollo del proyecto?</label><br>
-                        <select name="" id="">
-                            <option value="si" selected>Si</option>
-                            <option value="no">No</option>
-                        </select>
+                        <div>
+                        <label>¿Están vinculadas instituciones externas en el desarrollo del proyecto?</label>
+                        <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="opcionsi" checked>
+                    <label class="form-check-label" for="flexRadioDefault1">
+                     Sí
+                     </label>
+                    </div>
+                    <div class="form-check">
+                     <input class="form-check-input" type="radio" name="flexRadioDefault" id="opcionno">
+                    <label class="form-check-label" for="flexRadioDefault2">
+                    No
+                    </label>
+                    </div>
+                        </div>
                         <div>
                             <label for="nombre_instituciones_vinculadas">Nombre de las instituciones Externas vinculadas:</label>
                             <input type="text" name="nombre_instituciones_vinculadas" id="nombre_instituciones_vinculadas" value="<?php echo $nombre_instituciones_vinculadas; ?>" autocomplete="off">
                         </div>
                     
                 </div>
-                </div>
 
 </section>
+<script>
+    var opcion = document.getElementById('nombre_instituciones_vinculadas');
+
+    // evento para el input radio del "si"
+document.getElementById('opcionsi').addEventListener('click', function(e) {
+  //console.log('Vamos a habilitar el input text');
+  opcion.disabled = false;
+});
+
+// evento para el input radio del "no"
+document.getElementById('opcionno').addEventListener('click', function(e) {
+  //console.log('Vamos a deshabilitar el input text');
+  opcion.disabled = true;
+});
+</script>
 
 <section class="formulario container">
 <div class="input-text grid">
@@ -277,7 +388,7 @@ echo "Insertado correctamente";
 </div>
 <div>
                     <center>
-                    <legend>Objetivos Específicos del proyecto</legend>
+                    <legend>Objetivos Específicos</legend>
                     <textarea name="obj_especificos" id="obj_especificos" cols="40" rows="10"></textarea>
                     </center>
 </div>
@@ -288,7 +399,7 @@ echo "Insertado correctamente";
 <section class="formulario container"> 
 <legend>Investigadores &#40;as&#41; Participantes</legend>
 
-<div class="grid4">
+<div class="grid4 input-text">
        
                 <div>
                     <label>Nombre</label><br>
@@ -327,7 +438,7 @@ echo "Insertado correctamente";
 
 <section class="formulario container">
 <legend>Estudiantes participantes</legend>
-<div class="grid4">
+<div class="grid4 input-text">
                         <div>
                         <label>Nombre Completo</label><br>
                         <input type="text" name="nombre_estudiante" id="nombre_estudiante"><br>
@@ -404,14 +515,14 @@ echo "Insertado correctamente";
 
 <section class="formulario container">
     <legend>Productos entregables</legend>
-    <div class="grid">
+    <div class="grid input-text">
                     <div>
                     <legend>Fromación de Recursos Humanos</legend>
                     <center>
-                    <select name="formacion_recursos" id="formacion_recursos">
+                    <select name="formacion_recursos" id="formacion_recursos" class="input-text">
                                     <option disabled selected>--Formación de Recursos Humanos--</option>
                                     <?php while($row = mysqli_fetch_assoc($consulta_formacion) ): ?>
-                                        <option <?php echo $formacion === $row['idformacion_recursos_humanos'] ? 'selected' : ''; ?> value="<?php echo $row['idformacion_recursos_humanos'] ?>"> <?php echo $row['dato']; ?> </option>
+                                        <option <?php echo $formacion_recursos === $row['idformacion_recursos_humanos'] ? 'selected' : ''; ?> value="<?php echo $row['dato'] ?>"> <?php echo $row['dato']; ?> </option>
                                         
                                     <?php endwhile; ?>
                                 </select><br>
@@ -424,10 +535,10 @@ echo "Insertado correctamente";
                     <div>
                     <legend>Productividad académica</legend>
                     <center>
-                    <select name="productividad_academica" id="productividad_academica">
+                    <select name="productividad_academica" id="productividad_academica" class="input-text">
                                     <option disabled selected >--Productividad académica--</option>
                                     <?php while($row = mysqli_fetch_assoc($consulta_productividad) ): ?>
-                                        <option <?php echo $productividad_academica === $row['idproductos_entregables'] ? 'selected' : ''; ?> value="<?php echo $row['idproductos_entregables'] ?>"> <?php echo $row['dato']; ?> </option>
+                                        <option <?php echo $productividad_academica === $row['idproductos_entregables'] ? 'selected' : ''; ?> value="<?php echo $row['dato'] ?>"> <?php echo $row['dato']; ?> </option>
 
                                     <?php endwhile; ?>
                                 </select><br>
@@ -442,10 +553,10 @@ echo "Insertado correctamente";
                                  <div>
                                 <legend>Productos en vinculación o extensión</legend>
                                 <center> 
-                                <select name="productos_vinculacion" id="productos_vinculacion">
+                                <select name="productos_vinculacion" id="productos_vinculacion" class="input-text">
                                     <option disabled selected >--Productos en vinculación o extensión--</option>
                                     <?php while($row = mysqli_fetch_assoc($consulta_productos) ): ?>
-                                        <option <?php echo  $productos_vinculacion === $row['idproductos_vinculacion'] ? 'selected' : ''; ?> value="<?php echo $row['idproductos_vinculacion'] ?>"> <?php echo $row['dato']; ?> </option>
+                                        <option <?php echo  $productos_vinculacion === $row['idproductos_vinculacion'] ? 'selected' : ''; ?> value="<?php echo $row['dato'] ?>"> <?php echo $row['dato']; ?> </option>
 
                                     <?php endwhile; ?>
                                 </select><br>
@@ -468,8 +579,33 @@ echo "Insertado correctamente";
 
 <section class="formulario container">
 <legend>Presupuesto</legend>
-<div class="formulario grid2">
-                <div>
+<div class="formulario input-text">
+<table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Concepto</th>
+          <th scope="col">Monto solicitado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="row">Materiales y Suministros</td>
+          <td><input type="number" min="1" name="materiales_suministros" id="materiales_suministros" value="<?php echo $materiales_suministros; ?>" autocomplete="off"></td>
+        </tr>
+        <tr>
+          <td scope="row">Servicios Generales</td>
+          <td><input type="number" min="1" name="servicios_generales" id="servicios_generales" value="<?php echo $servicios_generales; ?>" autocomplete="off"></td>
+          
+        </tr>
+        <tr>
+          <td scope="row">Total</td>
+          <td colspan="2"><input type="number" min="1" id="total" name="total" value="<?php echo $total; ?>" autocomplete="off"></td>
+          
+        </tr>
+      </tbody>
+    </table>
+
+                <!-- <div>
                     <legend>Concepto</legend></br>
                     <label for="materiales">Materiales y Suministro</label></br>
                     <label for="servicios">Servicios Generales</label></br>
@@ -481,7 +617,7 @@ echo "Insertado correctamente";
                     <input type="text" name="materiales_suministros" id="materiales_suministros" value="<?php echo $materiales_suministros; ?>" autocomplete="off"></br>
                     <input type="text" name="servicios_generales" id="servicios_generales" value="<?php echo $servicios_generales; ?>" autocomplete="off"></br>
                     <input type="text" name="total" name="total" value="<?php echo $total; ?>" autocomplete="off"></br>
-                </div>
+                </div> -->
             </div>
 </section>
 
