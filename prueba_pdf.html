@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="librerias/jspdf.min.js"></script>
+        <script src="librerias/jspdf.plugin.autotable.min.js"></script>
+
+        <script>
+            function generapdf()
+            {
+             var doc = new jsPDF('p', 'mm', "a1");
+             
+                     
+                      var label_titulo = $('#ltitulo').text();//obtengo el titulo del label
+                      var txt_titulo = $('#titulo').val( );
+
+                      var label_nombre = $('#lnombre').text();
+                      var txt_nombre = $('#nombre').val( );
+
+                      var label_edad = $('#ledad').text();
+                      var txt_edad = $('#edad').val( );
+                      //Defino el tipo de letra para el documento, se puede ambiar despues de haber colocado el titulo a otro tipo de letra
+                      doc.setFontSize(30);
+                     doc.setFont("helvetica");
+                     doc.setFontType("bold");
+                     console.log("INSERTANDO TITULO DE LA SECCION");
+                     //doc.text(Titulo, 250, 35);  //COLOCANDO EL TITULO
+                     doc.text(txt_titulo, 250, 35);
+
+                     doc.text(label_nombre+":", 100, 80);  //COLOCANDO TEXTO DEL LABEL NOMBRE
+                     doc.text(txt_nombre, 150, 80);  //COLOCANDO TEXTO DEL Texbox NOMBRE
+
+                     doc.text(label_edad+":", 100, 100);  //COLOCANDO TEXTO DEL Texbox EDAD
+                     doc.text(txt_edad, 200, 100);  //COLOCANDO TEXTO DEL Texbox EDAD
+
+                     //----- AÑADIENDO LOS LOGOS DE LA PARTE SUPERIOR
+                     var myImage1 = new Image();
+                myImage1.src = 'image/TNM.png';
+                myImage1.onload = function(){
+                doc.addImage(myImage1 , 'PNG', 5, 0,90,40); 
+                };
+                    
+                var myImage2 = new Image();
+                myImage2.src = 'image/test copia.jpg';
+                myImage2.onload = function(){
+                doc.addImage(myImage2 , 'jpg', 500,0,80,40); 
+
+                   };
+
+//AÑADIENDO LA FIRMA AL FINAL DEL DOCUMENTO.-------
+                   var firma = new Image();
+                firma.src = 'image/firma.png';
+                firma.onload = function(){
+                doc.addImage(firma , 'png', 250,400,80,40); 
+     
+                  doc.save("Formato.pdf");
+                 console.log("FIRMAS COLOCADAS");
+                
+                   };         
+            }
+                         
+        </script>
+    </head>
+    <body style="text-align:center">
+  
+          <div class="container justify-content-center" style="text-align:center">
+      
+            <h4 id="titulo-pagina" align="center">EJEMPLO, GENERAR PDF</h4></div></br>
+
+
+                      <div class="form-group col-lg-6" style="text-align:center">
+                      <label id="ltitulo" for="titulo">Titulo</label>
+                      <input type="text"  id="titulo" class="form-control" placeholder="Titulo">
+                      </div>                  
+                      <div class="form-group col-lg-6" style="text-align:center">
+                        <label id="lnombre" for="nombre">Nombre</label>
+                        <input type="text"  id="nombre" class="form-control" placeholder="Nombre">
+                      </div>
+                      <div class="form-group col-lg-6" style="text-align:center">
+                        <label id="ledad" for="edad">Edad</label>
+                        <input type="text" class="form-control" id="edad" placeholder="Edad">
+                      </div>
+                    
+                   
+                 <div style="text-align:center">
+                    <input type="button" class="btn btn-primary col-md-4" value="Generar PDF" onclick="generapdf()">
+                </div>
+          </div>
+        
+    </body>
+</html>
