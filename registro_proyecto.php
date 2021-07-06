@@ -35,7 +35,7 @@ $campo_interes = null;
 $nom_programas_educativos = '';
 $nom_cuerpos_academicos = '';
 $linea_investigacion_trabajo = '';
-$nombre_instituciones_vinculadas = '';
+$nombre_instituciones_vinculadas = null;
 $fecha_tentativa_inicio = '';
 $duracion_proyecto = '';
 $obj_general = '';
@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nom_programas_educativos = mysqli_real_escape_string($db, filter_var($_POST['nom_programas_educativos'], FILTER_SANITIZE_STRING));
     $nom_cuerpos_academicos = mysqli_real_escape_string($db, filter_var($_POST['nom_cuerpos_academicos'], FILTER_SANITIZE_STRING));
     $linea_investigacion_trabajo = mysqli_real_escape_string($db, filter_var($_POST['linea_investigacion_trabajo'], FILTER_SANITIZE_STRING));
-    $nombre_instituciones_vinculadas = mysqli_real_escape_string($db, filter_var($_POST['nombre_instituciones_vinculadas'], FILTER_SANITIZE_STRING));
+    $nombre_instituciones_vinculadas = mysqli_real_escape_string($db, filter_var($_POST['nombre_instituciones_vinculadas'] ?? '', FILTER_SANITIZE_STRING));
     $fecha_tentativa_inicio = mysqli_real_escape_string($db, filter_var($_POST['fecha_tentativa_inicio'], FILTER_SANITIZE_STRING));
     $duracion_proyecto = mysqli_real_escape_string($db, filter_var($_POST['duracion_proyecto'], FILTER_SANITIZE_STRING));
     $obj_general = mysqli_real_escape_string($db, filter_var($_POST['obj_general'], FILTER_SANITIZE_STRING));
