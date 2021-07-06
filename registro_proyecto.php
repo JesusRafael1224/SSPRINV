@@ -30,8 +30,8 @@ $titulo_proyecto = '';
 $nombre_convocatoria = '';
 $inst_emite_convocatoria = '';
 $formacion_recursos = '';
-$tipo_investigacion = '';
-$campo_interes = '';
+$tipo_investigacion = null;
+$campo_interes = null;
 $nom_programas_educativos = '';
 $nom_cuerpos_academicos = '';
 $linea_investigacion_trabajo = '';
@@ -40,9 +40,12 @@ $fecha_tentativa_inicio = '';
 $duracion_proyecto = '';
 $obj_general = '';
 $obj_especificos = '';
-$formacion_recursos = '';
-$productividad_academica = '';
-$productos_vinculacion = '';
+$formacion_recursos = null;
+$formacion_recursos2 = '';
+$productividad_academica = null;
+$productividad_academica2 = '';
+$productos_vinculacion = null;
+$productos_vinculacion2 = '';
 $impacto = '';
 $materiales_suministros = '';
 $servicios_generales = '';
@@ -118,8 +121,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $titulo_proyecto = mysqli_real_escape_string($db, filter_var($_POST['titulo_proyecto'], FILTER_SANITIZE_STRING));
     $nombre_convocatoria = mysqli_real_escape_string($db, filter_var($_POST['nombre_convocatoria'], FILTER_SANITIZE_STRING));
     $inst_emite_convocatoria = mysqli_real_escape_string($db, filter_var($_POST['inst_emite_convocatoria'], FILTER_SANITIZE_STRING));
-    $tipo_investigacion = mysqli_real_escape_string($db, filter_var($_POST['tipo_investigacion'], FILTER_SANITIZE_STRING));
-    $campo_interes = mysqli_real_escape_string($db, filter_var($_POST['campo_interes'], FILTER_SANITIZE_STRING));
+    $tipo_investigacion = mysqli_real_escape_string($db, filter_var($_POST['tipo_investigacion'] ?? '', FILTER_SANITIZE_STRING));
+    $campo_interes = mysqli_real_escape_string($db, filter_var($_POST['campo_interes'] ?? '', FILTER_SANITIZE_STRING));
     $nom_programas_educativos = mysqli_real_escape_string($db, filter_var($_POST['nom_programas_educativos'], FILTER_SANITIZE_STRING));
     $nom_cuerpos_academicos = mysqli_real_escape_string($db, filter_var($_POST['nom_cuerpos_academicos'], FILTER_SANITIZE_STRING));
     $linea_investigacion_trabajo = mysqli_real_escape_string($db, filter_var($_POST['linea_investigacion_trabajo'], FILTER_SANITIZE_STRING));
@@ -128,9 +131,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $duracion_proyecto = mysqli_real_escape_string($db, filter_var($_POST['duracion_proyecto'], FILTER_SANITIZE_STRING));
     $obj_general = mysqli_real_escape_string($db, filter_var($_POST['obj_general'], FILTER_SANITIZE_STRING));
     $obj_especificos = mysqli_real_escape_string($db, filter_var($_POST['obj_especificos'], FILTER_SANITIZE_STRING));
-    $formacion_recursos = mysqli_real_escape_string($db, filter_var($_POST['formacion_recursos'], FILTER_SANITIZE_STRING));
-    $productividad_academica = mysqli_real_escape_string($db, filter_var($_POST['productividad_academica'], FILTER_SANITIZE_STRING));
-    $productos_vinculacion = mysqli_real_escape_string($db, filter_var($_POST['productos_vinculacion'], FILTER_SANITIZE_STRING));
+    $formacion_recursos = mysqli_real_escape_string($db, filter_var($_POST['formacion_recursos'] ?? '', FILTER_SANITIZE_STRING));
+    $formacion_recursos2 = mysqli_real_escape_string($db, filter_var($_POST['formacion_recursos2'], FILTER_SANITIZE_STRING));
+    $productividad_academica = mysqli_real_escape_string($db, filter_var($_POST['productividad_academica'] ?? '', FILTER_SANITIZE_STRING));
+    $productividad_academica2 = mysqli_real_escape_string($db, filter_var($_POST['productividad_academica2'], FILTER_SANITIZE_STRING));
+    $productos_vinculacion = mysqli_real_escape_string($db, filter_var($_POST['productos_vinculacion'] ?? '', FILTER_SANITIZE_STRING));
+    $productos_vinculacion2 = mysqli_real_escape_string($db, filter_var($_POST['productos_vinculacion2'], FILTER_SANITIZE_STRING));
     $impacto = mysqli_real_escape_string($db, filter_var($_POST['impacto'], FILTER_SANITIZE_STRING));
     $materiales_suministros = mysqli_real_escape_string($db, filter_var($_POST['materiales_suministros'], FILTER_SANITIZE_NUMBER_INT));
     $servicios_generales = mysqli_real_escape_string($db, filter_var($_POST['servicios_generales'], FILTER_SANITIZE_NUMBER_INT));
@@ -248,15 +254,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$obj_especificos) {
         $errores[] = "Objetivos específicos";
     }
-    if (!$formacion_recursos) {
-        $errores[] = "Formación de recursos humanos";
-    }
-    if (!$productividad_academica) {
-        $errores[] = "Productividad académica";
-    }
-    if (!$productos_vinculacion) {
-        $errores[] = "Productos en vinculación o extensión";
-    }
+    // if (!$formacion_recursos) {
+    //     $errores[] = "Formación de recursos humanos";
+    // }
+    // if (!$productividad_academica) {
+    //     $errores[] = "Productividad académica";
+    // }
+    // if (!$productos_vinculacion) {
+    //     $errores[] = "Productos en vinculación o extensión";
+    // }
     if (!$impacto) {
         $errores[] = "Impacto";
     }
@@ -283,7 +289,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($errores)) {
 
-        $query = "INSERT INTO registro_proyecto (fecha, num_registro, nombre, correo, titulo_proyecto, nombre_convocatoria, inst_emite_convocatoria, tipo_investigacion, campo_interes, nom_programas_educativos, nom_cuerpos_academicos, linea_investigacion_trabajo, nombre_instituciones_vinculadas, fecha_tentativa_inicio, duracion_proyecto, obj_general, obj_especificos, formacion_recursos, productividad_academica, productos_vinculacion, impacto, materiales_suministros, servicios_generales, total, firma_representante_tecnico, firma_jefe_dep_investigacion, sello_departamento_investigacion) VALUES ('$fecha', '$num_registro', '$nombre', '$correo', '$titulo_proyecto', '$nombre_convocatoria', '$inst_emite_convocatoria','$tipo_investigacion', '$campo_interes', '$nom_programas_educativos', '$nom_cuerpos_academicos', '$linea_investigacion_trabajo', '$nombre_instituciones_vinculadas', '$fecha_tentativa_inicio', '$duracion_proyecto', '$obj_general', '$obj_especificos', '$formacion_recursos', '$productividad_academica', '$productos_vinculacion', '$impacto', '$materiales_suministros', '$servicios_generales', '$total', '$firma_representante_tecnico', '$firma_jefe_dep_investigacion', '$sello_departamento_investigacion')";
+        $query = "INSERT INTO registro_proyecto (fecha, num_registro, nombre, correo, titulo_proyecto, nombre_convocatoria, inst_emite_convocatoria, tipo_investigacion, campo_interes, nom_programas_educativos, nom_cuerpos_academicos, linea_investigacion_trabajo, nombre_instituciones_vinculadas, fecha_tentativa_inicio, duracion_proyecto, obj_general, obj_especificos, formacion_recursos, productividad_academica, productos_vinculacion, impacto, materiales_suministros, servicios_generales, total, firma_representante_tecnico, firma_jefe_dep_investigacion, sello_departamento_investigacion) VALUES ('$fecha', '$num_registro', '$nombre', '$correo', '$titulo_proyecto', '$nombre_convocatoria', '$inst_emite_convocatoria','$tipo_investigacion', '$campo_interes', '$nom_programas_educativos', '$nom_cuerpos_academicos', '$linea_investigacion_trabajo', '$nombre_instituciones_vinculadas', '$fecha_tentativa_inicio', '$duracion_proyecto', '$obj_general', '$obj_especificos', '$formacion_recursos $formacion_recursos2', '$productividad_academica $productividad_academica2', '$productos_vinculacion $productos_vinculacion2', '$impacto', '$materiales_suministros', '$servicios_generales', '$total', '$firma_representante_tecnico', '$firma_jefe_dep_investigacion', '$sello_departamento_investigacion')";
 
         $insertar = mysqli_query($db, $query);
 
@@ -328,60 +334,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="preload" href="/css/style.css" as="style" />
     <link rel="stylesheet" href="/css/style.css">
 </head>
-
-<script>
-    function generapdf() {
-        var doc = new jsPDF('p', 'mm', "a1");
-
-
-        var h_titulo = $('#htitulo').text(); //obtengo el titulo del label
-        var txt_titulo = $('#titulo').val();
-
-        var label_nombre = $('#lnombre').text();
-        var txt_nombre = $('#nombre').val();
-
-        var label_edad = $('#ledad').text();
-        var txt_edad = $('#edad').val();
-        //Defino el tipo de letra para el documento, se puede ambiar despues de haber colocado el titulo a otro tipo de letra
-        doc.setFontSize(30);
-        doc.setFont("helvetica");
-        doc.setFontType("bold");
-        console.log("INSERTANDO TITULO DE LA SECCION");
-        //doc.text(Titulo, 250, 35);  //COLOCANDO EL TITULO
-        doc.text(h_titulo, 250, 35);
-
-        doc.text(label_nombre + ":", 100, 80); //COLOCANDO TEXTO DEL LABEL NOMBRE
-        doc.text(txt_nombre, 150, 80); //COLOCANDO TEXTO DEL Texbox NOMBRE
-
-        doc.text(label_edad + ":", 100, 100); //COLOCANDO TEXTO DEL Texbox EDAD
-        doc.text(txt_edad, 200, 100); //COLOCANDO TEXTO DEL Texbox EDAD
-
-        //----- AÑADIENDO LOS LOGOS DE LA PARTE SUPERIOR
-        var myImage1 = new Image();
-        myImage1.src = 'image/TNM.png';
-        myImage1.onload = function() {
-            doc.addImage(myImage1, 'PNG', 5, 0, 90, 40);
-        };
-
-        var myImage2 = new Image();
-        myImage2.src = 'image/test copia.jpg';
-        myImage2.onload = function() {
-            doc.addImage(myImage2, 'jpg', 500, 0, 80, 40);
-
-        };
-
-        //AÑADIENDO LA FIRMA AL FINAL DEL DOCUMENTO.-------
-        var firma = new Image();
-        firma.src = 'image/firma.png';
-        firma.onload = function() {
-            doc.addImage(firma, 'png', 250, 400, 80, 40);
-
-            doc.save("Formato.pdf");
-            console.log("FIRMAS COLOCADAS");
-
-        };
-    }
-</script>
 
 <body>
 
@@ -699,10 +651,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                 <?php endwhile; ?>
                             </select><br>
-                            <input type="checkbox" name="productos" id="beneficios" value="beneficios">
-                            <label for="beneficios">Otros</label><br>
-                            <label for="especifique">Especifique:</label><br>
-                            <input type="text" name="productos" id="espcifique">
+                            <!-- <input type="checkbox" name="productos" id="beneficios" value="beneficios"> -->
+                            <label>Otros</label><br>
+                            <label>Especifique:</label><br>
+                            <input type="text" name="formacion_recursos2" id="formacion_recursos2">
                     </div>
                     </center>
                     <div>
@@ -715,10 +667,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                 <?php endwhile; ?>
                             </select><br>
-                            <input type="checkbox" name="productos" id="beneficios" value="beneficios">
-                            <label for="beneficios">Otros</label><br>
-                            <label for="especifique2">Especifique:</label><br>
-                            <input type="text" name="productos" id="espcifique2">
+                            <!-- <input type="checkbox" name="productos" id="beneficios" value="beneficios"> -->
+                            <label>Otros</label><br>
+                            <label>Especifique:</label><br>
+                            <input type="text" name="productividad_academica2" id="productividad_academica2">
                     </div>
                     </center>
 
@@ -733,10 +685,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                 <?php endwhile; ?>
                             </select><br>
-                            <input type="checkbox" name="productos" id="beneficios" value="beneficios">
-                            <label for="beneficios">Otros beneficios </label><br>
-                            <label for="especifique3">Especifique:</label><br>
-                            <input type="text" name="productos" id="espcifique3">
+                            <!-- <input type="checkbox" name="productos" id="beneficios" value="beneficios"> -->
+                            <label>Otros beneficios </label><br>
+                            <label>Especifique:</label><br>
+                            <input type="text" name="productos_vinculacion2" id="productos_vinculacion2">
                     </div>
                     </center>
 

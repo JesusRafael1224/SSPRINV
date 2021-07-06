@@ -88,10 +88,10 @@ $semestre_estudiante1 = '';
 $semestre_estudiante2 = '';
 $semestre_estudiante3 = '';
 $semestre_estudiante4 = '';
-$curp_estudinate1 = '';
-$curp_estudinate2 = '';
-$curp_estudinate3 = '';
-$curp_estudinate4 = '';
+$curp_estudiante1 = '';
+$curp_estudiante2 = '';
+$curp_estudiante3 = '';
+$curp_estudiante4 = '';
 $rfc_estudiante1 = '';
 $rfc_estudiante2 = '';
 $rfc_estudiante3 = '';
@@ -156,8 +156,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ruta_firma3 = mysqli_real_escape_string($db, filter_var($_POST['ruta_firma3'], FILTER_SANITIZE_STRING));
     $ruta_firma4 = mysqli_real_escape_string($db, filter_var($_POST['ruta_firma4'], FILTER_SANITIZE_STRING));
     //ESTUDIANTES PARTICIPANTES
-    
-
+    $nombre_estudiante1 = mysqli_real_escape_string($db, filter_var($_POST['nombre_estudiante1'], FILTER_SANITIZE_STRING));
+    $nombre_estudiante2 = mysqli_real_escape_string($db, filter_var($_POST['nombre_estudiante2'], FILTER_SANITIZE_STRING));
+    $nombre_estudiante3 = mysqli_real_escape_string($db, filter_var($_POST['nombre_estudiante3'], FILTER_SANITIZE_STRING));
+    $nombre_estudiante4 = mysqli_real_escape_string($db, filter_var($_POST['nombre_estudiante4'], FILTER_SANITIZE_STRING));
+    $carrera_estudiante1 = mysqli_real_escape_string($db, filter_var($_POST['carrera_estudiante1'], FILTER_SANITIZE_STRING));
+    $carrera_estudiante2 = mysqli_real_escape_string($db, filter_var($_POST['carrera_estudiante2'], FILTER_SANITIZE_STRING));
+    $carrera_estudiante3 = mysqli_real_escape_string($db, filter_var($_POST['carrera_estudiante3'], FILTER_SANITIZE_STRING));
+    $carrera_estudiante4 = mysqli_real_escape_string($db, filter_var($_POST['carrera_estudiante4'], FILTER_SANITIZE_STRING));
+    $promedio_estudiante1 = mysqli_real_escape_string($db, filter_var($_POST['promedio_estudiante1'], FILTER_SANITIZE_STRING));
+    $promedio_estudiante2 = mysqli_real_escape_string($db, filter_var($_POST['promedio_estudiante2'], FILTER_SANITIZE_STRING));
+    $promedio_estudiante3 = mysqli_real_escape_string($db, filter_var($_POST['promedio_estudiante3'], FILTER_SANITIZE_STRING));
+    $promedio_estudiante4 = mysqli_real_escape_string($db, filter_var($_POST['promedio_estudiante4'], FILTER_SANITIZE_STRING));
+    $matricula_estudiante1 = mysqli_real_escape_string($db, filter_var($_POST['matricula_estudiante1'], FILTER_SANITIZE_STRING));
+    $matricula_estudiante2 = mysqli_real_escape_string($db, filter_var($_POST['matricula_estudiante2'], FILTER_SANITIZE_STRING));
+    $matricula_estudiante3 = mysqli_real_escape_string($db, filter_var($_POST['matricula_estudiante3'], FILTER_SANITIZE_STRING));
+    $matricula_estudiante4 = mysqli_real_escape_string($db, filter_var($_POST['matricula_estudiante4'], FILTER_SANITIZE_STRING));
+    $semestre_estudiante1 = mysqli_real_escape_string($db, filter_var($_POST['semestre_estudiante1'], FILTER_SANITIZE_STRING));
+    $semestre_estudiante2 = mysqli_real_escape_string($db, filter_var($_POST['semestre_estudiante2'], FILTER_SANITIZE_STRING));
+    $semestre_estudiante3 = mysqli_real_escape_string($db, filter_var($_POST['semestre_estudiante3'], FILTER_SANITIZE_STRING));
+    $semestre_estudiante4 = mysqli_real_escape_string($db, filter_var($_POST['semestre_estudiante4'], FILTER_SANITIZE_STRING));
+    $curp_estudiante1 = mysqli_real_escape_string($db, filter_var($_POST['curp_estudiante1'], FILTER_SANITIZE_STRING));
+    $curp_estudiante2 = mysqli_real_escape_string($db, filter_var($_POST['curp_estudiante2'], FILTER_SANITIZE_STRING));
+    $curp_estudiante3 = mysqli_real_escape_string($db, filter_var($_POST['curp_estudiante3'], FILTER_SANITIZE_STRING));
+    $curp_estudiante4 = mysqli_real_escape_string($db, filter_var($_POST['curp_estudiante4'], FILTER_SANITIZE_STRING));
+    $rfc_estudiante1 = mysqli_real_escape_string($db, filter_var($_POST['rfc_estudiante1'], FILTER_SANITIZE_STRING));
+    $rfc_estudiante1 = mysqli_real_escape_string($db, filter_var($_POST['rfc_estudiante1'], FILTER_SANITIZE_STRING));
+    $rfc_estudiante1 = mysqli_real_escape_string($db, filter_var($_POST['rfc_estudiante1'], FILTER_SANITIZE_STRING));
+    $rfc_estudiante1 = mysqli_real_escape_string($db, filter_var($_POST['rfc_estudiante1'], FILTER_SANITIZE_STRING));
+    $correo_estudiante1 = mysqli_real_escape_string($db, filter_var($_POST['correo_estudiante1'], FILTER_SANITIZE_STRING));
+    $correo_estudiante2 = mysqli_real_escape_string($db, filter_var($_POST['correo_estudiante2'], FILTER_SANITIZE_STRING));
+    $correo_estudiante3 = mysqli_real_escape_string($db, filter_var($_POST['correo_estudiante3'], FILTER_SANITIZE_STRING));
+    $correo_estudiante4 = mysqli_real_escape_string($db, filter_var($_POST['correo_estudiante4'], FILTER_SANITIZE_STRING));
+    $telefono_estudiante1 = mysqli_real_escape_string($db, filter_var($_POST['telefono_estudiante1'], FILTER_SANITIZE_STRING));
+    $telefono_estudiante2 = mysqli_real_escape_string($db, filter_var($_POST['telefono_estudiante2'], FILTER_SANITIZE_STRING));
+    $telefono_estudiante3 = mysqli_real_escape_string($db, filter_var($_POST['telefono_estudiante3'], FILTER_SANITIZE_STRING));
+    $telefono_estudiante4 = mysqli_real_escape_string($db, filter_var($_POST['telefono_estudiante4'], FILTER_SANITIZE_STRING));
 
     // if(!$fecha && !$num_registro && !$nombre && !$correo && !$titulo_proyecto && !$nombre_convocatoria && !$inst_emite_convocatoria && !$tipo_investigacion && !$campo_interes && !$nom_programas_educativos && !$nom_cuerpos_academicos && !$linea_investigacion_trabajo && !$nombre_instituciones_vinculadas && !$fecha_tentativa_inicio && !$duracion_proyecto && !$obj_general && !$obj_especificos && !$formacion_recursos && !$productividad_academica && !$productos_vinculacion && !$impacto && !$materiales_suministros && !$servicios_generales && !$total && !$firma_representante_tecnico && !$firma_jefe_dep_investigacion && !$sello_departamento_investigacion){
     //  $errores[] = "Todos los campos son obligatorios";
@@ -254,15 +288,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $insertar = mysqli_query($db, $query);
 
         $query2 = "INSERT INTO investigadores_participantes (nombre_inves_participante, adscripcion_institucion, tipo_participacion, ruta_firma) values ('$nombre_inves_participante1', '$adscripcion_inves_participante1', '$tipo_participacion1', '$ruta_firma1'), ('$nombre_inves_participante2', '$adscripcion_inves_participante2', '$tipo_participacion2', '$ruta_firma2'),
-    ('$nombre_inves_participante3', '$adscripcion_inves_participante3', '$tipo_participacion3', '$ruta_firma3'),
-    ('$nombre_inves_participante4', '$adscripcion_inves_participante4', '$tipo_participacion4', '$ruta_firma4')";
+         ('$nombre_inves_participante3', '$adscripcion_inves_participante3', '$tipo_participacion3', '$ruta_firma3'),
+         ('$nombre_inves_participante4', '$adscripcion_inves_participante4', '$tipo_participacion4', '$ruta_firma4')";
 
         $insertar2 = mysqli_query($db, $query2);
+
+        $query3 = "INSERT INTO estudiantes_participantes (nombre_estudiante, carrera_estudiante, promedio_estudiante, matricula_estudiante, semestre_estudiante, curp_estudiante, rfc_estudiante, correo_estudiante, telefono_estudiante) VALUES ('$nombre_estudiante1', '$carrera_estudiante1', '$promedio_estudiante1', '$matricula_estudiante1', '$semestre_estudiante1', '$curp_estudiante1', '$rfc_estudiante1', '$correo_estudiante1', '$telefono_estudiante1'), ('$nombre_estudiante2', '$carrera_estudiante2', '$promedio_estudiante2', '$matricula_estudiante2', '$semestre_estudiante2', '$curp_estudiante2', '$rfc_estudiante2', '$correo_estudiante2', '$telefono_estudiante2'), ('$nombre_estudiante3', '$carrera_estudiante3', '$promedio_estudiante3', '$matricula_estudiante3', '$semestre_estudiante3', '$curp_estudiante3', '$rfc_estudiante3', '$correo_estudiante3', '$telefono_estudiante3'), ('$nombre_estudiante4', '$carrera_estudiante4', '$promedio_estudiante4', '$matricula_estudiante4', '$semestre_estudiante4', '$curp_estudiante4', '$rfc_estudiante4', '$correo_estudiante4', '$telefono_estudiante4')";
+
+        $insertar3 = mysqli_query($db, $query3);
         //echo $query;
 
 
 
-        if ($insertar && $insertar2) {
+        if ($insertar && $insertar2 || $insertar3) {
             echo "Insertado correctamente";
         }
     }
@@ -289,61 +327,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
     <link rel="preload" href="/css/style.css" as="style" />
     <link rel="stylesheet" href="/css/style.css">
+
+    <script>
+        function generapdf() {
+            var doc = new jsPDF('p', 'mm', "a1");
+
+
+            var h_titulo = $('#htitulo').text(); //obtengo el titulo del label
+            var txt_titulo = $('#titulo').val();
+
+            var label_nombre = $('#lnombre').text();
+            var txt_nombre = $('#nombre').val();
+
+            var label_edad = $('#ledad').text();
+            var txt_edad = $('#edad').val();
+            //Defino el tipo de letra para el documento, se puede ambiar despues de haber colocado el titulo a otro tipo de letra
+            doc.setFontSize(30);
+            doc.setFont("helvetica");
+            doc.setFontType("bold");
+            console.log("INSERTANDO TITULO DE LA SECCION");
+            //doc.text(Titulo, 250, 35);  //COLOCANDO EL TITULO
+            doc.text(h_titulo, 250, 35);
+
+            doc.text(label_nombre + ":", 100, 80); //COLOCANDO TEXTO DEL LABEL NOMBRE
+            doc.text(txt_nombre, 150, 80); //COLOCANDO TEXTO DEL Texbox NOMBRE
+
+            doc.text(label_edad + ":", 100, 100); //COLOCANDO TEXTO DEL Texbox EDAD
+            doc.text(txt_edad, 200, 100); //COLOCANDO TEXTO DEL Texbox EDAD
+
+            //----- AÑADIENDO LOS LOGOS DE LA PARTE SUPERIOR
+            var myImage1 = new Image();
+            myImage1.src = 'image/TNM.png';
+            myImage1.onload = function() {
+                doc.addImage(myImage1, 'PNG', 5, 0, 90, 40);
+            };
+
+            var myImage2 = new Image();
+            myImage2.src = 'image/test copia.jpg';
+            myImage2.onload = function() {
+                doc.addImage(myImage2, 'jpg', 500, 0, 80, 40);
+
+            };
+
+            //AÑADIENDO LA FIRMA AL FINAL DEL DOCUMENTO.-------
+            var firma = new Image();
+            firma.src = 'image/firma.png';
+            firma.onload = function() {
+                doc.addImage(firma, 'png', 250, 400, 80, 40);
+
+                doc.save("Formato.pdf");
+                console.log("FIRMAS COLOCADAS");
+
+            };
+        }
+    </script>
+
+
 </head>
-
-<script>
-    function generapdf() {
-        var doc = new jsPDF('p', 'mm', "a1");
-
-
-        var h_titulo = $('#htitulo').text(); //obtengo el titulo del label
-        var txt_titulo = $('#titulo').val();
-
-        var label_nombre = $('#lnombre').text();
-        var txt_nombre = $('#nombre').val();
-
-        var label_edad = $('#ledad').text();
-        var txt_edad = $('#edad').val();
-        //Defino el tipo de letra para el documento, se puede ambiar despues de haber colocado el titulo a otro tipo de letra
-        doc.setFontSize(30);
-        doc.setFont("helvetica");
-        doc.setFontType("bold");
-        console.log("INSERTANDO TITULO DE LA SECCION");
-        //doc.text(Titulo, 250, 35);  //COLOCANDO EL TITULO
-        doc.text(h_titulo, 250, 35);
-
-        doc.text(label_nombre + ":", 100, 80); //COLOCANDO TEXTO DEL LABEL NOMBRE
-        doc.text(txt_nombre, 150, 80); //COLOCANDO TEXTO DEL Texbox NOMBRE
-
-        doc.text(label_edad + ":", 100, 100); //COLOCANDO TEXTO DEL Texbox EDAD
-        doc.text(txt_edad, 200, 100); //COLOCANDO TEXTO DEL Texbox EDAD
-
-        //----- AÑADIENDO LOS LOGOS DE LA PARTE SUPERIOR
-        var myImage1 = new Image();
-        myImage1.src = 'image/TNM.png';
-        myImage1.onload = function() {
-            doc.addImage(myImage1, 'PNG', 5, 0, 90, 40);
-        };
-
-        var myImage2 = new Image();
-        myImage2.src = 'image/test copia.jpg';
-        myImage2.onload = function() {
-            doc.addImage(myImage2, 'jpg', 500, 0, 80, 40);
-
-        };
-
-        //AÑADIENDO LA FIRMA AL FINAL DEL DOCUMENTO.-------
-        var firma = new Image();
-        firma.src = 'image/firma.png';
-        firma.onload = function() {
-            doc.addImage(firma, 'png', 250, 400, 80, 40);
-
-            doc.save("Formato.pdf");
-            console.log("FIRMAS COLOCADAS");
-
-        };
-    }
-</script>
 
 <body>
 
@@ -576,74 +616,74 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="grid4 input-text">
                     <div>
                         <label>Nombre Completo</label><br>
-                        <input type="text" name="nombre_estudiante1" id="nombre_estudiante1"><br>
-                        <input type="text" name="nombre_estudiante2" id="nombre_estudiante2"><br>
-                        <input type="text" name="nombre_estudiante3" id="nombre_estudiante3"><br>
-                        <input type="text" name="nombre_estudiante4" id="nombre_estudiante4"><br>
+                        <input type="text" name="nombre_estudiante1" id="nombre_estudiante1" value="<?php echo $nombre_estudiante1; ?>" autocomplete="off"><br>
+                        <input type="text" name="nombre_estudiante2" id="nombre_estudiante2" value="<?php echo $nombre_estudiante2; ?>" autocomplete="off"><br>
+                        <input type="text" name="nombre_estudiante3" id="nombre_estudiante3" value="<?php echo $nombre_estudiante3; ?>" autocomplete="off"><br>
+                        <input type="text" name="nombre_estudiante4" id="nombre_estudiante4" value="<?php echo $nombre_estudiante4; ?>" autocomplete="off"><br>
                     </div>
 
                     <div>
                         <label>Carrera</label><br>
-                        <input type="text" name="carrera_estudiante1" id="carrera_estudiante1"><br>
-                        <input type="text" name="carrera_estudiante2" id="carrera_estudiante2"><br>
-                        <input type="text" name="carrera_estudiante3" id="carrera_estudiante3"><br>
-                        <input type="text" name="carrera_estudiante4" id="carrera_estudiante4"><br>
+                        <input type="text" name="carrera_estudiante1" id="carrera_estudiante1" value="<?php echo $carrera_estudiante1; ?>" autocomplete="off"><br>
+                        <input type="text" name="carrera_estudiante2" id="carrera_estudiante2" value="<?php echo $carrera_estudiante2; ?>" autocomplete="off"><br>
+                        <input type="text" name="carrera_estudiante3" id="carrera_estudiante3" value="<?php echo $carrera_estudiante3; ?>" autocomplete="off"><br>
+                        <input type="text" name="carrera_estudiante4" id="carrera_estudiante4" value="<?php echo $carrera_estudiante4; ?>" autocomplete="off"><br>
                     </div>
 
                     <div>
                         <label>Promedio</label><br>
-                        <input type="text" name="promedio_estudiante1" id="promedio_estudiante1"><br>
-                        <input type="text" name="promedio_estudiante2" id="promedio_estudiante2"><br>
-                        <input type="text" name="promedio_estudiante3" id="promedio_estudiante3"><br>
-                        <input type="text" name="promedio_estudiante4" id="promedio_estudiante4"><br>
+                        <input type="text" name="promedio_estudiante1" id="promedio_estudiante1" value="<?php echo $promedio_estudiante1; ?>" autocomplete="off"><br>
+                        <input type="text" name="promedio_estudiante2" id="promedio_estudiante2" value="<?php echo $promedio_estudiante2; ?>" autocomplete="off"><br>
+                        <input type="text" name="promedio_estudiante3" id="promedio_estudiante3" value="<?php echo $promedio_estudiante3; ?>" autocomplete="off"><br>
+                        <input type="text" name="promedio_estudiante4" id="promedio_estudiante4" value="<?php echo $promedio_estudiante4; ?>" autocomplete="off"><br>
                     </div>
 
                     <div>
                         <label>Matrícula</label><br>
-                        <input type="text" name="matricula_estudiante1" id="matricula_estudiante1"><br>
-                        <input type="text" name="matricula_estudiante2" id="matricula_estudiante2"><br>
-                        <input type="text" name="matricula_estudiante3" id="matricula_estudiante3"><br>
-                        <input type="text" name="matricula_estudiante4" id="matricula_estudiante4"><br>
+                        <input type="text" name="matricula_estudiante1" id="matricula_estudiante1" value="<?php echo $matricula_estudiante1; ?>" autocomplete="off"><br>
+                        <input type="text" name="matricula_estudiante2" id="matricula_estudiante2" value="<?php echo $matricula_estudiante2; ?>" autocomplete="off"><br>
+                        <input type="text" name="matricula_estudiante3" id="matricula_estudiante3" value="<?php echo $matricula_estudiante3; ?>" autocomplete="off"><br>
+                        <input type="text" name="matricula_estudiante4" id="matricula_estudiante4" value="<?php echo $matricula_estudiante4; ?>" autocomplete="off"><br>
                     </div>
 
                     <div>
                         <label>Semestre</label><br>
-                        <input type="text" name="semestre_estudiante1" id="semestre_estudiante1"><br>
-                        <input type="text" name="semestre_estudiante2" id="semestre_estudiante2"><br>
-                        <input type="text" name="semestre_estudiante3" id="semestre_estudiante3"><br>
-                        <input type="text" name="semestre_estudiante4" id="semestre_estudiante4"><br>
+                        <input type="text" name="semestre_estudiante1" id="semestre_estudiante1" value="<?php echo $semestre_estudiante1; ?>" autocomplete="off"><br>
+                        <input type="text" name="semestre_estudiante2" id="semestre_estudiante2" value="<?php echo $semestre_estudiante2; ?>" autocomplete="off"><br>
+                        <input type="text" name="semestre_estudiante3" id="semestre_estudiante3" value="<?php echo $semestre_estudiante3; ?>" autocomplete="off"><br>
+                        <input type="text" name="semestre_estudiante4" id="semestre_estudiante4" value="<?php echo $semestre_estudiante4; ?>" autocomplete="off"><br>
                     </div>
 
                     <div>
                         <label>CURP</label><br>
-                        <input type="text" name="curp_estudiante1" id="curp_estudiante1"><br>
-                        <input type="text" name="curp_estudiante2" id="curp_estudiante2"><br>
-                        <input type="text" name="curp_estudiante3" id="curp_estudiante3"><br>
-                        <input type="text" name="curp_estudiante4" id="curp_estudiante4"><br>
+                        <input type="text" name="curp_estudiante1" id="curp_estudiante1" value="<?php echo $curp_estudiante1; ?>" autocomplete="off"><br>
+                        <input type="text" name="curp_estudiante2" id="curp_estudiante2" value="<?php echo $curp_estudiante2; ?>" autocomplete="off"><br>
+                        <input type="text" name="curp_estudiante3" id="curp_estudiante3" value="<?php echo $curp_estudiante3; ?>" autocomplete="off"><br>
+                        <input type="text" name="curp_estudiante4" id="curp_estudiante4" value="<?php echo $curp_estudiante4; ?>" autocomplete="off"><br>
                     </div>
 
                     <div>
                         <label>RFC</label><br>
-                        <input type="text" name="rfc_estudiante1" id="rfc_estudiante1"><br>
-                        <input type="text" name="rfc_estudiante2" id="rfc_estudiante2"><br>
-                        <input type="text" name="rfc_estudiante3" id="rfc_estudiante3"><br>
-                        <input type="text" name="rfc_estudiante4" id="rfc_estudiante4"><br>
+                        <input type="text" name="rfc_estudiante1" id="rfc_estudiante1" value="<?php echo $rfc_estudiante1; ?>" autocomplete="off"><br>
+                        <input type="text" name="rfc_estudiante2" id="rfc_estudiante2" value="<?php echo $rfc_estudiante2; ?>" autocomplete="off"><br>
+                        <input type="text" name="rfc_estudiante3" id="rfc_estudiante3" value="<?php echo $rfc_estudiante3; ?>" autocomplete="off"><br>
+                        <input type="text" name="rfc_estudiante4" id="rfc_estudiante4" value="<?php echo $rfc_estudiante4; ?>" autocomplete="off"><br>
                     </div>
 
                     <div>
                         <label>Correo electrónico</label><br>
-                        <input type="text" name="correo_estudiante1" id="correo_estudiante1"><br>
-                        <input type="text" name="correo_estudiante2" id="correo_estudiante2"><br>
-                        <input type="text" name="correo_estudiante3" id="correo_estudiante3"><br>
-                        <input type="text" name="correo_estudiante4" id="correo_estudiante4"><br>
+                        <input type="text" name="correo_estudiante1" id="correo_estudiante1" value="<?php echo $correo_estudiante1; ?>" autocomplete="off"><br>
+                        <input type="text" name="correo_estudiante2" id="correo_estudiante2" value="<?php echo $correo_estudiante2; ?>" autocomplete="off"><br>
+                        <input type="text" name="correo_estudiante3" id="correo_estudiante3" value="<?php echo $correo_estudiante3; ?>" autocomplete="off"><br>
+                        <input type="text" name="correo_estudiante4" id="correo_estudiante4" value="<?php echo $correo_estudiante4; ?>" autocomplete="off"><br>
                     </div>
 
                     <div>
                         <label>Teléfono</label><br>
-                        <input type="text" name="telefono_estudiante1" id="telefono_estudiante1"><br>
-                        <input type="text" name="telefono_estudiante2" id="telefono_estudiante2"><br>
-                        <input type="text" name="telefono_estudiante3" id="telefono_estudiante3"><br>
-                        <input type="text" name="telefono_estudiante4" id="telefono_estudiante4"><br>
+                        <input type="text" name="telefono_estudiante1" id="telefono_estudiante1" value="<?php echo $telefono_estudiante1; ?>" autocomplete="off"><br>
+                        <input type="text" name="telefono_estudiante2" id="telefono_estudiante2" value="<?php echo $telefono_estudiante2; ?>" autocomplete="off"><br>
+                        <input type="text" name="telefono_estudiante3" id="telefono_estudiante3" value="<?php echo $telefono_estudiante3; ?>" autocomplete="off"><br>
+                        <input type="text" name="telefono_estudiante4" id="telefono_estudiante4" value="<?php echo $telefono_estudiante4; ?>" autocomplete="off"><br>
                     </div>
                 </div>
             </section>

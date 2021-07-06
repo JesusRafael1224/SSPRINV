@@ -14,7 +14,7 @@ $errores = [];
     $empleado = '';
     $telefono = '';
     $correo = '';
-    $area = '';
+    $area = null;
     $usuario = '';
     $contrasena = '';
     //$confirmar_contrasena = '';
@@ -26,7 +26,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $empleado = mysqli_real_escape_string($db, filter_var( $_POST['empleado'], FILTER_SANITIZE_NUMBER_INT) );
     $telefono = mysqli_real_escape_string($db, filter_var( $_POST['telefono'], FILTER_SANITIZE_NUMBER_INT));
     $correo = mysqli_real_escape_string($db, filter_var( $_POST['correo'], FILTER_VALIDATE_EMAIL));
-    $area = mysqli_real_escape_string($db, filter_var( $_POST['area'], FILTER_SANITIZE_STRING));
+    $area = mysqli_real_escape_string($db, filter_var( $_POST['area'] ?? '', FILTER_SANITIZE_STRING));
     $usuario = mysqli_real_escape_string($db, filter_var ($_POST['usuario'], FILTER_SANITIZE_STRING));
     $contrasena = mysqli_real_escape_string($db, filter_var( $_POST['contrasena'], FILTER_SANITIZE_STRING));
     //$confirmar_contrasena = $_POST['confrirmar_contrasena'];
